@@ -1,5 +1,7 @@
 import 'package:breathe_app/feature/cronometer/cronometer_view.dart';
 import 'package:flutter/material.dart';
+import 'support/utils/localize.dart';
+import 'package:flutter_gen/gen_l10n/localization.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,9 +12,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: CronometerView(),
+      supportedLocales: Localization.supportedLocales,
+      localizationsDelegates: Localization.localizationsDelegates,
+      onGenerateTitle: (context) => Localize.instance.of(context).appTitle,
+      home: const CronometerView(),
     );
   }
 }
