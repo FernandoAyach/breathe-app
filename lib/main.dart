@@ -1,4 +1,4 @@
-import 'package:breathe_app/feature/cronometer/cronometer_view.dart';
+import 'package:breathe_app/router/mobile_router.dart';
 import 'package:flutter/material.dart';
 import 'support/utils/localize.dart';
 import 'package:flutter_gen/gen_l10n/localization.dart';
@@ -17,7 +17,8 @@ class MyApp extends StatelessWidget {
       supportedLocales: Localization.supportedLocales,
       localizationsDelegates: Localization.localizationsDelegates,
       onGenerateTitle: (context) => Localize.instance.of(context).appTitle,
-      home: const CronometerView(),
+      initialRoute: MobileRouter.initialRoute,
+      routes: MobileRouter.routes,
     );
   }
 }
