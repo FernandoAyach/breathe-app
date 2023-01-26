@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../feature/cronometer/di/cronometer_factory.dart';
+import '../feature/chronometer/di/chronometer_factory.dart';
 
 class MobileRouter {
   static String get initialRoute {
-    return CronometerFactory.route;
+    return ChronometerFactory.route;
   }
 
   static final Map<String, WidgetBuilder> routes = {
-    CronometerFactory.route: (_) => CronometerFactory.cronometer(),
+    ChronometerFactory.route: (_) => ChronometerFactory.chronometer(),
   };
 }
