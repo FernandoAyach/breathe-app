@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import '../support/style/app_colors.dart';
 
 class ChronometerViewModel extends ChronometerViewProtocol {
-  static const totalDuration = Duration(minutes: 11);
-  Duration duration = const Duration(minutes: 5, seconds: 55);
+  static const Duration totalDuration = Duration(hours: 1);
+  static const Duration insertedDuration = Duration(hours: 0, minutes: 59, seconds: 50);
+
+  Duration currentDuration = const Duration(hours: 0, minutes: 59, seconds: 50);
   Timer? timer;
   Icon icon = const Icon(Icons.play_arrow);
   Color iconBackgroundColor = AppColors.green;
@@ -23,6 +25,18 @@ class ChronometerViewModel extends ChronometerViewProtocol {
   }
 
   @override
+  void updateChronometer() {
+    if (isChronometerActive) {
+      updateIconToPlay();
+      stopChronometer();
+    } else {
+      updateIconToPause();
+      runChronometer();
+    }
+    notifyListeners();
+  }
+
+  @override
   bool get isChronometerActive {
     if (timer != null) {
       return timer!.isActive;
@@ -33,24 +47,6 @@ class ChronometerViewModel extends ChronometerViewProtocol {
   @override
   String get getDuration => formatDuration();
 
-  int handleTime(int seconds) {
-    return duration.inSeconds - (60 * duration.inMinutes);
-  }
-
-  @override
-  void updateChronometer() {
-    if (isChronometerActive) {
-      icon = const Icon(Icons.play_arrow);
-      iconBackgroundColor = AppColors.green;
-      stopChronometer();
-    } else {
-      icon = const Icon(Icons.pause);
-      iconBackgroundColor = AppColors.red;
-      runChronometer();
-    }
-    notifyListeners();
-  }
-
   @override
   Color get getColor => iconBackgroundColor;
 
@@ -60,30 +56,40 @@ class ChronometerViewModel extends ChronometerViewProtocol {
   @override
   void restartChronometer() {
     timer?.cancel();
-    duration = const Duration(minutes: 5, seconds: 55);
+    currentDuration = insertedDuration;
+    updateIconToPlay();
     notifyListeners();
   }
 
+  int handleTime(int time, String type) {
+    if (type == "seconds") {
+      return time - (60 * currentDuration.inMinutes);
+    }
+    return time - (60 * currentDuration.inHours);
+  }
+
   void addTime() {
-    duration = Duration(
-        minutes: duration.inMinutes,
-        seconds: handleTime(duration.inSeconds) + 1);
-    if (duration > totalDuration) {
+    currentDuration = Duration(
+      hours: currentDuration.inHours,
+      minutes: handleTime(currentDuration.inMinutes, "minutes"),
+      seconds: handleTime(currentDuration.inSeconds, "seconds") + 1
+    );
+    if (currentDuration > totalDuration) {
       timer?.cancel();
-      duration = const Duration();
+      currentDuration = const Duration();
     }
     notifyListeners();
   }
 
   String formatDuration() {
-    String formattedDuration = "";
-    int seconds = handleTime(duration.inSeconds);
-    int minutes = duration.inMinutes;
+    String formattedDuration = "0${currentDuration.inHours}:";
+    int seconds = handleTime(currentDuration.inSeconds, "seconds");
+    int minutes = handleTime(currentDuration.inMinutes, "minutes");
 
     if (minutes < 10) {
-      formattedDuration = "0$minutes:";
+      formattedDuration += "0$minutes:";
     } else {
-      formattedDuration = "$minutes:";
+      formattedDuration += "$minutes:";
     }
 
     if (seconds < 10) {
@@ -93,5 +99,15 @@ class ChronometerViewModel extends ChronometerViewProtocol {
     }
 
     return formattedDuration;
+  }
+
+  void updateIconToPlay() {
+    icon = const Icon(Icons.play_arrow);
+    iconBackgroundColor = AppColors.green;
+  }
+
+  void updateIconToPause() {
+    icon = const Icon(Icons.pause);
+    iconBackgroundColor = AppColors.red;
   }
 }

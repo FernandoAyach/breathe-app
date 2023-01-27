@@ -47,7 +47,6 @@ class ChronometerView extends StatelessWidget {
   Widget _counter() {
     return Flexible(
       flex: 5,
-      fit: FlexFit.loose,
       child: Center(
         child: Text(
           viewModel.getDuration,
@@ -60,7 +59,6 @@ class ChronometerView extends StatelessWidget {
   Widget _chronometerButtons() {
     return Flexible(
       flex: 1,
-      fit: FlexFit.loose,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
