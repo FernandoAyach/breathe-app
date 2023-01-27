@@ -1,29 +1,91 @@
 import 'dart:async';
 import 'package:breathe_app/feature/chronometer/chronometer_controller.dart';
+import 'package:flutter/material.dart';
 
+import '../support/style/app_colors.dart';
 
 class ChronometerViewModel extends ChronometerViewProtocol {
-  static const countDownDuration = Duration(seconds: 10);
-  Duration duration = const Duration();
+  static const totalDuration = Duration(minutes: 11);
+  Duration duration = const Duration(minutes: 10, seconds: 55);
   Timer? timer;
-  int seconds = 0;
+  Icon icon = const Icon(Icons.play_arrow);
+  Color iconBackgroundColor = AppColors.green;
 
   @override
-  void initChronometer() {
+  void runChronometer() {
     timer = Timer.periodic(const Duration(seconds: 1), (_) => addTime());
     notifyListeners();
   }
 
   @override
-  String get getDuration => duration.inSeconds.toString();
+  void stopChronometer() {
+    timer?.cancel();
+  }
+
+  @override
+  bool get isChronometerActive {
+    if(timer != null) {
+      return timer!.isActive;
+    }
+    return false;
+  }
+
+  @override
+  String get getDuration => formatDuration();
+
+  int handleTime(int seconds) {
+    return duration.inSeconds - (60 * duration.inMinutes);
+  }
 
   void addTime() {
-    seconds = seconds + 1;
-    if (seconds > countDownDuration.inSeconds){
+    duration = Duration(
+        minutes: duration.inMinutes,
+        seconds: handleTime(duration.inSeconds) + 1
+    );
+    if (duration > totalDuration) {
       timer?.cancel();
-    } else{
-      duration = Duration(seconds: seconds);
+      duration = const Duration();
     }
     notifyListeners();
   }
+
+  String formatDuration() {
+    String formattedDuration = "";
+    int seconds = handleTime(duration.inSeconds);
+    int minutes = duration.inMinutes;
+
+    if (minutes < 10) {
+      formattedDuration = "0$minutes:";
+    } else {
+      formattedDuration = "$minutes:";
+    }
+
+    if (seconds < 10) {
+      formattedDuration += "0$seconds";
+    } else {
+      formattedDuration += "$seconds";
+    }
+
+    return formattedDuration;
+  }
+
+  @override
+  void updateChronometer() {
+    if (isChronometerActive) {
+      icon = const Icon(Icons.play_arrow);
+      iconBackgroundColor = AppColors.green;
+      stopChronometer();
+    } else {
+      icon = const Icon(Icons.pause);
+      iconBackgroundColor = AppColors.red;
+      runChronometer();
+    }
+    notifyListeners();
+  }
+
+  @override
+  Color get getColor => iconBackgroundColor;
+
+  @override
+  Icon get getIcon => icon;
 }
