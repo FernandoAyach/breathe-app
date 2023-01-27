@@ -6,7 +6,7 @@ import '../support/style/app_colors.dart';
 
 class ChronometerViewModel extends ChronometerViewProtocol {
   static const totalDuration = Duration(minutes: 11);
-  Duration duration = const Duration(minutes: 10, seconds: 55);
+  Duration duration = const Duration(minutes: 5, seconds: 55);
   Timer? timer;
   Icon icon = const Icon(Icons.play_arrow);
   Color iconBackgroundColor = AppColors.green;
@@ -24,7 +24,7 @@ class ChronometerViewModel extends ChronometerViewProtocol {
 
   @override
   bool get isChronometerActive {
-    if(timer != null) {
+    if (timer != null) {
       return timer!.isActive;
     }
     return false;
@@ -37,11 +37,37 @@ class ChronometerViewModel extends ChronometerViewProtocol {
     return duration.inSeconds - (60 * duration.inMinutes);
   }
 
+  @override
+  void updateChronometer() {
+    if (isChronometerActive) {
+      icon = const Icon(Icons.play_arrow);
+      iconBackgroundColor = AppColors.green;
+      stopChronometer();
+    } else {
+      icon = const Icon(Icons.pause);
+      iconBackgroundColor = AppColors.red;
+      runChronometer();
+    }
+    notifyListeners();
+  }
+
+  @override
+  Color get getColor => iconBackgroundColor;
+
+  @override
+  Icon get getIcon => icon;
+
+  @override
+  void restartChronometer() {
+    timer?.cancel();
+    duration = const Duration(minutes: 5, seconds: 55);
+    notifyListeners();
+  }
+
   void addTime() {
     duration = Duration(
         minutes: duration.inMinutes,
-        seconds: handleTime(duration.inSeconds) + 1
-    );
+        seconds: handleTime(duration.inSeconds) + 1);
     if (duration > totalDuration) {
       timer?.cancel();
       duration = const Duration();
@@ -68,24 +94,4 @@ class ChronometerViewModel extends ChronometerViewProtocol {
 
     return formattedDuration;
   }
-
-  @override
-  void updateChronometer() {
-    if (isChronometerActive) {
-      icon = const Icon(Icons.play_arrow);
-      iconBackgroundColor = AppColors.green;
-      stopChronometer();
-    } else {
-      icon = const Icon(Icons.pause);
-      iconBackgroundColor = AppColors.red;
-      runChronometer();
-    }
-    notifyListeners();
-  }
-
-  @override
-  Color get getColor => iconBackgroundColor;
-
-  @override
-  Icon get getIcon => icon;
 }

@@ -7,6 +7,7 @@ abstract class ChronometerViewModelProtocol with ChangeNotifier {
   void runChronometer();
   void stopChronometer();
   void updateChronometer();
+  void restartChronometer();
   Color get getColor;
   Icon get getIcon;
   bool get isChronometerActive;
@@ -74,7 +75,7 @@ class ChronometerView extends StatelessWidget {
             child: viewModel.getIcon,
           ),
           FloatingActionButton(
-            onPressed: () {},
+            onPressed: () { viewModel.restartChronometer(); },
             backgroundColor: AppColors.yellow,
             child: const Icon(Icons.restart_alt),
           ),
