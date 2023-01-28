@@ -20,7 +20,7 @@ class HomeView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                "Boa tarde, Fernando!",
+                "Bom dia, Fernando!",
                 style: AppFonts.interBold(
                   20,
                   AppColors.black,
