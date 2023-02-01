@@ -1,3 +1,4 @@
+import 'package:breathe_app/feature/home/components/default_session_list_view.dart';
 import 'package:breathe_app/support/style/app_colors.dart';
 import 'package:breathe_app/support/style/app_fonts.dart';
 import 'package:flutter/material.dart';
@@ -49,22 +50,7 @@ class HomeView extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: itemCount,
-                  scrollDirection: Axis.vertical,
-                  physics: const BouncingScrollPhysics(),
-                  itemBuilder: (_, index) {
-                    return const ListTile(
-                      title: Text("Item"),
-                      leading: Icon(Icons.person),
-                      trailing: Icon(Icons.select_all),
-                    );
-                  },
-                ),
-              ),
+              child: DefaultSessionListView(itemCount: itemCount)
             ),
           ],
         ),
