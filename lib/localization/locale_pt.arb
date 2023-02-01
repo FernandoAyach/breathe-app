@@ -2,5 +2,6 @@
   "@@locale": "pt",
 
   "appTitle": "Breathe",
-  "chronometerDefaultCount": "00:00"
+  "homeTitle": "Bom dia, Fernando!",
+  "homeSubtitle": "Minhas sessões"
 }
