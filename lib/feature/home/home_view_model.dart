@@ -1,4 +1,6 @@
 import 'package:breathe_app/feature/home/home_controller.dart';
-import 'package:flutter/material.dart';
 
-class HomeViewModel extends HomeViewProtocol {}
+class HomeViewModel extends HomeViewProtocol {
+  @override
+  int get itemCount => 20;
+}

@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 
 import '../../support/utils/localize.dart';
 
-abstract class HomeViewModelProtocol with ChangeNotifier {}
-
-int itemCount = 20;
+abstract class HomeViewModelProtocol with ChangeNotifier {
+  int get itemCount;
+}
 
 class HomeView extends StatelessWidget {
   final HomeViewModelProtocol viewModel;
@@ -24,11 +24,11 @@ class HomeView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(top: 12, bottom: 8, left: 20),
               child: Expanded(
                 child: Text(
                   l10n.homeTitle,
-                  style: AppFonts.interBold(
+                  style: AppFonts.interBold(  
                     20,
                     AppColors.black,
                   ),
@@ -40,7 +40,7 @@ class HomeView extends StatelessWidget {
               color: AppColors.pink,
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(top: 8, bottom: 8, left: 20),
               child: Text(
                 l10n.homeSubtitle,
                 style: AppFonts.interBold(
@@ -50,11 +50,10 @@ class HomeView extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: DefaultSessionListView(itemCount: itemCount)
+              child: DefaultSessionListView(itemCount: viewModel.itemCount)
             ),
           ],
         ),
-        
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
