@@ -15,6 +15,7 @@ class HomeController extends StatefulWidget {
 }
 
 class _HomeControllerState extends State<HomeController> {
+
   @override
   Widget build(BuildContext context) {
     return HomeView(viewModel: widget.viewModel);
