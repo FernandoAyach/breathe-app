@@ -1,4 +1,5 @@
 import 'package:breathe_app/model/session.dart';
+import 'package:breathe_app/objectbox.g.dart';
 import 'package:objectbox/objectbox.dart';
 
 @Entity()
@@ -8,17 +9,22 @@ class EntitySession {
   String name;
 
   EntitySession({required this.duration, required this.name});
+}
 
-  EntitySession.fromSession(Session session)
-      : id = session.id,
-        duration = session.duration,
-        name = session.name;
+extension MapToSession on EntitySession {
+  Session toSession() {
+    return Session(
+      duration: duration, 
+      name: name
+    );
+  }
+}
 
-  Map<String, dynamic> toMap() {
-    return {
-      "id": id,
-      "name": name,
-      "duration": duration,
-    };
+extension MapFromSession on EntitySession {
+  EntitySession fromSession(Session session) {
+    return EntitySession(
+      duration: session.duration, 
+      name: session.name
+    );
   }
 }
