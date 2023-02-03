@@ -18,41 +18,17 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = Localize.instance.l10n;
-
     return Scaffold(
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 12, bottom: 8, left: 20),
-              child: Expanded(
-                child: Text(
-                  l10n.homeTitle,
-                  style: AppFonts.interBold(  
-                    20,
-                    AppColors.black,
-                  ),
-                ),
-              ),
-            ),
-            const Divider(
-              thickness: 2,
-              color: AppColors.pink,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 8, bottom: 8, left: 20),
-              child: Text(
-                l10n.homeSubtitle,
-                style: AppFonts.interBold(
-                  16,
-                  AppColors.black,
-                ),
-              ),
-            ),
-            Expanded(
-              child: DefaultSessionListView(itemCount: viewModel.itemCount)
+            _header(),
+            AnimatedBuilder(
+              animation: viewModel,
+              builder: (_, __) {
+                return _sessionList();
+              }
             ),
           ],
         ),
@@ -62,6 +38,48 @@ class HomeView extends StatelessWidget {
         backgroundColor: AppColors.black,
         child: const Icon(Icons.add),
       ),
+    );
+  }
+
+  Widget _header() {
+    final l10n = Localize.instance.l10n;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 12, bottom: 8, left: 20),
+          child: Expanded(
+            child: Text(
+              l10n.homeTitle,
+              style: AppFonts.interBold(
+                20,
+                AppColors.black,
+              ),
+            ),
+          ),
+        ),
+        const Divider(
+          thickness: 2,
+          color: AppColors.pink,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 8, bottom: 8, left: 20),
+          child: Text(
+            l10n.homeSubtitle,
+            style: AppFonts.interBold(
+              16,
+              AppColors.black,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _sessionList() {
+    return Expanded(
+      child: DefaultSessionListView(itemCount: viewModel.itemCount),
     );
   }
 }

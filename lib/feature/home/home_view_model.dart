@@ -6,7 +6,7 @@ import 'package:flutter_gen/gen_l10n/localization.dart';
 class HomeViewModel extends HomeViewProtocol {
   GetSessionsUseCaseProtocol getSessionsUseCase;
   final Localization l10n;
-  List<Session> _sessions = List.empty();
+  List<Session> _sessions = [];
 
   HomeViewModel({required this.getSessionsUseCase, required this.l10n});
 
@@ -21,12 +21,10 @@ class HomeViewModel extends HomeViewProtocol {
     getSessionsUseCase.execute(
       success: (results) {
         _sessions = results;
-         print("Deu certo");
         notifyListeners();
       }, 
       failure: (errorMsg) {
         notifyListeners();
-        print("Deu erro: $errorMsg");
       }
     );
   }

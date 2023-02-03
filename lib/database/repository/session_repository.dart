@@ -9,7 +9,7 @@ abstract class SessionRepositoryProtocol {
 }
 
 typedef Success = void Function(dynamic result);
-typedef Failure = void Function(Error error);
+typedef Failure = void Function(String error);
 
 class SessionRepository extends SessionRepositoryProtocol {
   final Database database;
@@ -28,7 +28,7 @@ class SessionRepository extends SessionRepositoryProtocol {
       List<EntitySession> sessions = box.getAll() as List<EntitySession>;
       success?.call(sessions);
     } catch (error) {
-      failure?.call(Error());
+      failure?.call("");
     }
   }
 }

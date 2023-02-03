@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:breathe_app/feature/chronometer/chronometer_controller.dart';
 import 'package:flutter/material.dart';
 
-import '../support/style/app_colors.dart';
+import '../../support/style/app_colors.dart';
 
 class ChronometerViewModel extends ChronometerViewProtocol {
   static const Duration totalDuration = Duration(hours: 1);
