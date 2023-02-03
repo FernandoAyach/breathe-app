@@ -23,6 +23,7 @@ class GetSessionsUseCase extends GetSessionsUseCaseProtocol {
     sessionRepository.getSessions(
       success: (results) {
         List<Session> sessions = List.empty();
+        sessions.add(Session(duration: "1", name: "Teste"));
         try {
           results.forEach((EntitySession session) {
             sessions.add(session.toSession());

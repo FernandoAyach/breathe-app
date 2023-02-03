@@ -4,11 +4,11 @@ import 'package:objectbox/objectbox.dart';
 
 @Entity()
 class EntitySession {
-  int id = 0;
+  int id;
   String duration;
   String name;
 
-  EntitySession({required this.duration, required this.name});
+  EntitySession({this.id = 0, required this.duration, required this.name});
 }
 
 extension MapToSession on EntitySession {

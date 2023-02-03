@@ -3,10 +3,12 @@ import 'package:breathe_app/support/style/app_colors.dart';
 import 'package:breathe_app/support/style/app_fonts.dart';
 import 'package:flutter/material.dart';
 
+import '../../model/session.dart';
 import '../../support/utils/localize.dart';
 
 abstract class HomeViewModelProtocol with ChangeNotifier {
   int get itemCount;
+  List<Session> get sessions;
 }
 
 class HomeView extends StatelessWidget {
