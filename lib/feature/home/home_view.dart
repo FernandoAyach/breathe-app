@@ -1,14 +1,14 @@
 import 'package:breathe_app/feature/home/components/default_session_list_view.dart';
+import 'package:breathe_app/feature/home/components/session_item/default_session_item.dart';
 import 'package:breathe_app/support/style/app_colors.dart';
 import 'package:breathe_app/support/style/app_fonts.dart';
 import 'package:flutter/material.dart';
 
-import '../../model/session.dart';
 import '../../support/utils/localize.dart';
 
 abstract class HomeViewModelProtocol with ChangeNotifier {
   int get itemCount;
-  List<Session> get sessions;
+  List<DefaultSessionItemViewModelProtocol> get sessions;
 }
 
 class HomeView extends StatelessWidget {
@@ -79,7 +79,7 @@ class HomeView extends StatelessWidget {
 
   Widget _sessionList() {
     return Expanded(
-      child: DefaultSessionListView(itemCount: viewModel.itemCount),
+      child: DefaultSessionListView(sessions: viewModel.sessions),
     );
   }
 }

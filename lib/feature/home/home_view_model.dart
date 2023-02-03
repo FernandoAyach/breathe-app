@@ -1,3 +1,5 @@
+import 'package:breathe_app/feature/home/components/session_item/default_session_item.dart';
+import 'package:breathe_app/feature/home/components/session_item/default_session_item_view_model.dart';
 import 'package:breathe_app/feature/home/home_controller.dart';
 import 'package:breathe_app/feature/home/use_cases/get_sessions_use_case.dart';
 import 'package:breathe_app/model/session.dart';
@@ -14,7 +16,11 @@ class HomeViewModel extends HomeViewProtocol {
   int get itemCount => _sessions.length;
 
   @override
-  List<Session> get sessions => _sessions;
+  List<DefaultSessionItemViewModelProtocol> get sessions {
+    return _sessions.map((session) {
+      return DefaultSessionItemViewModel(session: session);
+    }).toList();
+  } 
 
   @override
   void getSessions() {

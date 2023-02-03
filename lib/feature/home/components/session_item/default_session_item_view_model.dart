@@ -1,21 +1,22 @@
 import 'package:breathe_app/feature/home/components/session_item/default_session_item.dart';
 
+import '../../../../model/session.dart';
+
 class DefaultSessionItemViewModel extends DefaultSessionItemViewModelProtocol {
-  @override
-  void didTapSession(int sessionId) {
-    // TODO: implement didTapSession
-  }
+
+  final Session session;
+
+  DefaultSessionItemViewModel({required this.session});
 
   @override
-  // TODO: implement sessionDuration
-  String get sessionDuration => throw UnimplementedError();
+  void didTapSession(int sessionId) {}
 
   @override
-  // TODO: implement sessionId
-  int get sessionId => throw UnimplementedError();
+  String get sessionDuration => session.duration;
 
   @override
-  // TODO: implement sessionName
-  String get sessionName => throw UnimplementedError();
+  int get sessionId => session.id;
 
+  @override
+  String get sessionName => session.name;
 }

@@ -14,7 +14,9 @@ abstract class DefaultSessionItemViewModelProtocol {
 }
 
 class DefaultSessionItem extends StatelessWidget {
-  const DefaultSessionItem({super.key});
+  final DefaultSessionItemViewModelProtocol viewModel;
+
+  const DefaultSessionItem({super.key, required this.viewModel});
 
   @override
   Widget build(BuildContext context) {
@@ -51,14 +53,14 @@ class DefaultSessionItem extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          "Treino diário",
+                          viewModel.sessionName,
                           style: AppFonts.interBold(20, AppColors.black),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          "Duração: 5 minutos",
+                          "Duração: ${viewModel.sessionDuration}",
                           style: AppFonts.interMedium(20, AppColors.black),
                         ),
                       )
