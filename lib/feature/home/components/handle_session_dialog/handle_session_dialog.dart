@@ -1,5 +1,6 @@
 import 'package:breathe_app/feature/home/home_view.dart';
 import 'package:breathe_app/support/components/default_text_button.dart';
+import 'package:breathe_app/support/components/default_text_gradient_button.dart';
 import 'package:breathe_app/support/components/default_text_input.dart';
 import 'package:breathe_app/support/style/app_colors.dart';
 import 'package:breathe_app/support/style/app_fonts.dart';
@@ -18,35 +19,47 @@ class HandleSessionDialog extends StatelessWidget {
 
     return AlertDialog(
       scrollable: true,
-      title: Text(
-        l10n.dialogAddSessionTitle,
-        style: AppFonts.interMedium(28, AppColors.black),
+      title: FittedBox(
+        fit: BoxFit.fitWidth,
+        child: Text(
+          l10n.dialogAddSessionTitle,
+          style: AppFonts.interMedium(28, AppColors.black),
+        ),
       ),
       content: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(8.0),
         child: Form(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
+            children: <Widget> [
               DefaultTextInput(hint: l10n.dialogFormSessionNameLabel),
-              DefaultTextButton(
-                backgroundColor: AppColors.pink,
-                textColor: AppColors.white,
-                text: l10n.buttonCreateSessionLabel,
-              ),
-              DefaultTextButton(
-                backgroundColor: AppColors.black,
-                textColor: AppColors.white,
-                text: l10n.buttonCancelLabel,
-              )
             ],
           ),
         ),
       ),
       elevation: 20,
       shadowColor: AppColors.pink,
-      actions: const [],
+      actions: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+             Expanded(
+              child: DefaultTextButton(
+                backgroundColor: AppColors.black,
+                textColor: AppColors.white,
+                text: l10n.buttonCancelLabel,
+              ),
+            ),
+            Expanded(
+              child: DefaultTextGradientButton(
+                primaryColor: AppColors.pink,
+                secondaryColor: AppColors.white,
+                textColor: AppColors.black,
+                text: l10n.buttonCreateSessionLabel,
+              ),
+            ),
+          ],
+        )
+      ],
     );
   }
 }

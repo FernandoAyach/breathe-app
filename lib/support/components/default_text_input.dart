@@ -21,6 +21,7 @@ class DefaultTextInput extends StatelessWidget {
             borderSide: BorderSide(color: AppColors.pink, width: 1.5),
             borderRadius: BorderRadius.all(Radius.circular(20.0))),
         ),
+        maxLines: 1,
         controller: _textEditingController,
         style: AppFonts.interRegular(18, AppColors.black),
       ),

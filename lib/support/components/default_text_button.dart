@@ -19,23 +19,21 @@ class DefaultTextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: ElevatedButton(
-        onPressed: () {},
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(backgroundColor),
-          padding: MaterialStateProperty.all(
-            const EdgeInsets.all(30.0),
+      child: InkWell(
+        onTap: () {},
+        child: Ink(
+          padding: const EdgeInsets.all(30.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            color: backgroundColor,
           ),
-          overlayColor: MaterialStateProperty.all(AppColors.pink),
-          shape: MaterialStateProperty.all(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
+          child: FittedBox(
+            fit: BoxFit.fill,
+            child: Text(
+              text,
+              style: AppFonts.interSemiBold(20, textColor),
             ),
           ),
-        ),
-        child: Text(
-          text,
-          style: AppFonts.interSemiBold(20, textColor),
         ),
       ),
     );
