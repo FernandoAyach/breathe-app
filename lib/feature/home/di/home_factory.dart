@@ -1,4 +1,5 @@
 import 'package:breathe_app/database/repository/session_repository.dart';
+import 'package:breathe_app/feature/home/use_cases/add_session_use_case.dart';
 import 'package:breathe_app/feature/home/use_cases/get_sessions_use_case.dart';
 import 'package:flutter/material.dart';
 
@@ -15,8 +16,10 @@ class HomeFactory {
     final l10n = Localize.instance.l10n;
     final sessionRepository = SessionRepository(database: database);
     final getSessionsUseCase = GetSessionsUseCase(sessionRepository: sessionRepository);
+    final addSessionUseCase = AddSessionUseCase(sessionRepository: sessionRepository);
     final viewModel = HomeViewModel(
       getSessionsUseCase: getSessionsUseCase,
+      addSessionUseCase: addSessionUseCase,
       l10n: l10n,
     );
     return HomeController(viewModel: viewModel);
