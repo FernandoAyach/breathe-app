@@ -3,5 +3,6 @@
 
   "appTitle": "Breathe",
   "homeTitle": "Bom dia, Fernando!",
-  "homeSubtitle": "Minhas sessões"
+  "homeSubtitle": "Minhas sessões",
+  "sessionDurationLabel": "Duração:"
 }

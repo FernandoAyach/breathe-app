@@ -13,9 +13,6 @@ class HomeViewModel extends HomeViewProtocol {
   HomeViewModel({required this.getSessionsUseCase, required this.l10n});
 
   @override
-  int get itemCount => _sessions.length;
-
-  @override
   List<DefaultSessionItemViewModelProtocol> get sessions {
     return _sessions.map((session) {
       return DefaultSessionItemViewModel(session: session);

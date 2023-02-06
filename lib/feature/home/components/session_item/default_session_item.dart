@@ -4,6 +4,7 @@ import 'package:breathe_app/support/style/app_fonts.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../support/style/app_colors.dart';
+import '../../../../support/utils/localize.dart';
 
 abstract class DefaultSessionItemViewModelProtocol {
   int get sessionId;
@@ -20,6 +21,8 @@ class DefaultSessionItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = Localize.instance.l10n;
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Material(
@@ -31,8 +34,8 @@ class DefaultSessionItem extends StatelessWidget {
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
             child: Container(
-                height: 150,
-                width: 150,
+                height: 140,
+                width: 140,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(25),
                   gradient: LinearGradient(
@@ -60,7 +63,7 @@ class DefaultSessionItem extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          "Duração: ${viewModel.sessionDuration}",
+                          "${l10n.sessionDurationLabel} ${viewModel.sessionDuration}",
                           style: AppFonts.interMedium(20, AppColors.black),
                         ),
                       )

@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import '../../support/utils/localize.dart';
 
 abstract class HomeViewModelProtocol with ChangeNotifier {
-  int get itemCount;
   List<DefaultSessionItemViewModelProtocol> get sessions;
 }
 
@@ -48,7 +47,7 @@ class HomeView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 12, bottom: 8, left: 20),
+          padding: const EdgeInsets.only(top: 14, bottom: 8, left: 20),
           child: Expanded(
             child: Text(
               l10n.homeTitle,
@@ -68,7 +67,7 @@ class HomeView extends StatelessWidget {
           child: Text(
             l10n.homeSubtitle,
             style: AppFonts.interBold(
-              16,
+              18,
               AppColors.black,
             ),
           ),

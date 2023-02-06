@@ -1,5 +1,3 @@
-import 'package:breathe_app/model/session.dart';
-
 import '../../objectbox.g.dart';
 import '../database.dart';
 import '../model/entity_session.dart';
@@ -16,16 +14,16 @@ class SessionRepository extends SessionRepositoryProtocol {
 
   SessionRepository({required this.database});
 
-  Future<Box> _getSessionBox() async {
-    final store = await database.getStore();
-    return store.box<EntitySession>();
+  Future<Box> _getSessionTable() async {
+    final databaseInstance = await database.getInstance();
+    return databaseInstance.box<EntitySession>();
   }
 
   @override
   void getSessions({Success? success, Failure? failure}) async {
     try {
-      final box = await _getSessionBox();
-      List<EntitySession> sessions = box.getAll() as List<EntitySession>;
+      final sessionTable = await _getSessionTable();
+      List<EntitySession> sessions = sessionTable.getAll() as List<EntitySession>;
       success?.call(sessions);
     } catch (error) {
       failure?.call("");
