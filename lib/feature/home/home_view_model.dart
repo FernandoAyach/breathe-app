@@ -26,7 +26,8 @@ class HomeViewModel extends HomeViewProtocol {
         _sessions = results;
         notifyListeners();
       }, 
-      failure: (errorMsg) {
+      failure: (errorDescription) {
+        //Implementar mensagem de erro
         notifyListeners();
       }
     );

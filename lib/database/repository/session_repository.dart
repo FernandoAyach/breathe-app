@@ -1,3 +1,5 @@
+import 'package:breathe_app/model/error_handler.dart';
+
 import '../../objectbox.g.dart';
 import '../database.dart';
 import '../model/entity_session.dart';
@@ -7,7 +9,7 @@ abstract class SessionRepositoryProtocol {
 }
 
 typedef Success = void Function(dynamic result);
-typedef Failure = void Function(String error);
+typedef Failure = void Function(AppError error);
 
 class SessionRepository extends SessionRepositoryProtocol {
   final Database database;
@@ -26,7 +28,7 @@ class SessionRepository extends SessionRepositoryProtocol {
       List<EntitySession> sessions = sessionTable.getAll() as List<EntitySession>;
       success?.call(sessions);
     } catch (error) {
-      failure?.call("");
+      failure?.call(AppError.databaseGetError);
     }
   }
 }

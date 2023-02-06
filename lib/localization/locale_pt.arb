@@ -4,5 +4,9 @@
   "appTitle": "Breathe",
   "homeTitle": "Bom dia, Fernando!",
   "homeSubtitle": "Minhas sessões",
-  "sessionDurationLabel": "Duração:"
+  "sessionDurationLabel": "Duração:",
+
+  "databaseInternalError": "Erro interno ao processar dados do banco",
+  "databaseGetError":"Erro ao coletar dados do banco",
+  "unknownError": "Erro não identificado"
 }

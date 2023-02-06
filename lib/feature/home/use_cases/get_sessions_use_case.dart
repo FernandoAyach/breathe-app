@@ -1,6 +1,6 @@
-
 import 'package:breathe_app/database/model/entity_session.dart';
 import 'package:breathe_app/database/repository/session_repository.dart';
+import 'package:breathe_app/model/error_handler.dart';
 
 import '../../../model/session.dart';
 
@@ -26,12 +26,13 @@ class GetSessionsUseCase extends GetSessionsUseCaseProtocol {
             sessions.add(entitySession.toSession());
           });
           success(sessions);
-        } on Error catch (error) {
-          failure("$error");
+        } catch (error) {
+          failure(ErrorHandler(errorType: AppError.databaseGetError)
+              .errorDescription);
         }
       },
-      failure: (error) {
-        failure("");
+      failure: (errorType) {
+        failure(ErrorHandler(errorType: errorType).errorDescription);
       },
     );
   }
