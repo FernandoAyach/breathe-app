@@ -8,5 +8,6 @@
 
   "databaseInternalError": "Erro interno ao processar dados do banco",
   "databaseGetError":"Erro ao coletar dados do banco",
+  "databaseAddError":"Erro ao adicionar dados ao banco",
   "unknownError": "Erro não identificado"
 }

@@ -12,6 +12,8 @@ class ErrorHandler {
     switch(errorType) {
       case AppError.databaseGetError:
         return l10n.databaseGetError;
+      case AppError.databaseAddError:
+        return l10n.databaseAddError;
       case AppError.databaseInternalError:
         return l10n.databaseInternalError;
       default:
@@ -22,5 +24,6 @@ class ErrorHandler {
 
 enum AppError {
   databaseGetError,
-  databaseInternalError
+  databaseAddError,
+  databaseInternalError,
 }

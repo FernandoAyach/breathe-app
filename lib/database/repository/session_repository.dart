@@ -6,6 +6,11 @@ import '../model/entity_session.dart';
 
 abstract class SessionRepositoryProtocol {
   void getSessions({Success? success, Failure? failure});
+  void addSession({
+    required EntitySession session, 
+    Success? success, 
+    Failure? failure
+  });
 }
 
 typedef Success = void Function(dynamic result);
@@ -25,10 +30,26 @@ class SessionRepository extends SessionRepositoryProtocol {
   void getSessions({Success? success, Failure? failure}) async {
     try {
       final sessionTable = await _getSessionTable();
-      List<EntitySession> sessions = sessionTable.getAll() as List<EntitySession>;
+      List<EntitySession> sessions =
+          sessionTable.getAll() as List<EntitySession>;
       success?.call(sessions);
     } catch (error) {
       failure?.call(AppError.databaseGetError);
+    }
+  }
+
+  @override
+  void addSession({
+    required EntitySession session,
+    Success? success,
+    Failure? failure 
+  }) async {
+    try {
+      final sessionTable = await _getSessionTable();
+      final sessionId = sessionTable.put(session);
+      success?.call(sessionId);
+    } catch (error) {
+      failure?.call(AppError.databaseAddError);
     }
   }
 }

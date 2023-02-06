@@ -20,11 +20,11 @@ extension MapToSession on EntitySession {
   }
 }
 
-extension MapFromSession on EntitySession {
-  EntitySession fromSession(Session session) {
+extension MapFromSession on Session {
+  EntitySession fromSession() {
     return EntitySession(
-      duration: session.duration, 
-      name: session.name
+      duration: duration, 
+      name: name
     );
   }
 }
