@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 
-import '../style/app_colors.dart';
 import '../style/app_fonts.dart';
 
 class DefaultTextButton extends StatelessWidget {
   final Color backgroundColor;
   final Color textColor;
   final String text;
+  final void Function()? onTap;
 
   const DefaultTextButton({
     super.key, 
     required this.backgroundColor, 
     required this.textColor,
-    required this.text
+    required this.text,
+    required this.onTap
   });
 
   @override
@@ -20,7 +21,7 @@ class DefaultTextButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
-        onTap: () {},
+        onTap: onTap,
         child: Ink(
           padding: const EdgeInsets.all(30.0),
           decoration: BoxDecoration(

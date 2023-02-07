@@ -1,4 +1,3 @@
-import 'package:breathe_app/feature/home/home_view.dart';
 import 'package:breathe_app/support/components/default_text_button.dart';
 import 'package:breathe_app/support/components/default_text_gradient_button.dart';
 import 'package:breathe_app/support/components/default_text_input.dart';
@@ -8,9 +7,19 @@ import 'package:flutter/material.dart';
 
 import '../../../../support/utils/localize.dart';
 
-class HandleSessionDialog extends StatelessWidget {
-  final HomeViewModelProtocol viewModel;
+abstract class HandleSessionDialogViewModelProtocol {
+  String? textValidator(String? content);
+  String? minuteValidator(String? content);
+  String? secondValidator(String? content);
+  GlobalKey<FormState> get formKey;
+  void onTapCancel();
+  void onTapConfirm();
+  //void addSession();
+}
 
+class HandleSessionDialog extends StatelessWidget {
+  final HandleSessionDialogViewModelProtocol viewModel;
+  
   const HandleSessionDialog({super.key, required this.viewModel});
 
   @override
@@ -29,43 +38,33 @@ class HandleSessionDialog extends StatelessWidget {
       content: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Form(
+          key: viewModel.formKey,
           child: Column(
             children: <Widget>[
-              DefaultTextInput(label: l10n.dialogFormSessionNameLabel),
+              DefaultTextInput(
+                label: l10n.dialogFormSessionNameLabel,
+                validator: viewModel.textValidator
+              ),
               Padding(
                 padding: const EdgeInsets.all(0.0),
                 child: Row(
                   children: [
-                    /*
                     Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: DefaultTextInput(
-                          label: l10n.dialogHoursLabel,
-                          hint: l10n.dialogDefaultDurationTimeHint,
-                        ),
-                      ),
-                    ),*/
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: DefaultTextInput(
-                          label: l10n.dialogMinutesLabel,
-                          hint: l10n.dialogDefaultDurationTimeHint,
-                          maxLength: 2,
-                          inputType: TextInputType.number
-                        ),
+                      child: DefaultTextInput(
+                        label: l10n.dialogMinutesLabel,
+                        hint: l10n.dialogDefaultDurationTimeHint,
+                        maxLength: 2,
+                        inputType: TextInputType.number,
+                        validator: viewModel.minuteValidator,
                       ),
                     ),
                     Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: DefaultTextInput(
-                          label: l10n.dialogSecondsLabel,
-                          hint: l10n.dialogDefaultDurationTimeHint,
-                          maxLength: 2,
-                          inputType: TextInputType.number,
-                        ),
+                      child: DefaultTextInput(
+                        label: l10n.dialogSecondsLabel,
+                        hint: l10n.dialogDefaultDurationTimeHint,
+                        maxLength: 2,
+                        inputType: TextInputType.number,
+                        validator: viewModel.secondValidator,
                       ),
                     ),
                   ],
@@ -86,6 +85,7 @@ class HandleSessionDialog extends StatelessWidget {
                 backgroundColor: AppColors.black,
                 textColor: AppColors.white,
                 text: l10n.buttonCancelLabel,
+                onTap: viewModel.onTapCancel,
               ),
             ),
             Expanded(
@@ -94,6 +94,7 @@ class HandleSessionDialog extends StatelessWidget {
                 secondaryColor: AppColors.white,
                 textColor: AppColors.black,
                 text: l10n.buttonCreateSessionLabel,
+                onTap: viewModel.onTapConfirm,
               ),
             ),
           ],

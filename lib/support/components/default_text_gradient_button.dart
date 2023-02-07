@@ -6,18 +6,21 @@ class DefaultTextGradientButton extends StatelessWidget {
   final Color primaryColor;
   final Color secondaryColor;
   final Color textColor;
+  final void Function()? onTap;
 
-  const DefaultTextGradientButton(
-      {super.key,
-      required this.text,
-      required this.primaryColor,
-      required this.secondaryColor,
-      required this.textColor});
+  const DefaultTextGradientButton({
+    super.key,
+    required this.text,
+    required this.primaryColor,
+    required this.secondaryColor,
+    required this.textColor,
+    required this.onTap
+  });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: onTap,
       child: Ink(
         padding: const EdgeInsets.all(30.0),
         decoration: BoxDecoration(

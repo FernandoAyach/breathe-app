@@ -7,21 +7,22 @@ class DefaultTextInput extends StatelessWidget {
   final String? hint;
   final String? label;
   final int? maxLength;
-  final TextInputType? inputType;
-  final _textEditingController = TextEditingController();
+  final TextInputType? inputType; 
+  final String? Function(String?)? validator;
 
-  DefaultTextInput({
+  const DefaultTextInput({
     super.key, 
     this.hint, 
     this.label, 
     this.maxLength, 
-    this.inputType
+    this.inputType,
+    this.validator
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 12.0),
+      padding: const EdgeInsets.all(8.0),
       child: TextFormField(
         decoration: InputDecoration(
           labelText: label ?? "",
@@ -34,8 +35,8 @@ class DefaultTextInput extends StatelessWidget {
         ),
         maxLength: maxLength ?? 20,
         keyboardType: inputType ?? TextInputType.text,
-        controller: _textEditingController,
         style: AppFonts.interRegular(18, AppColors.black),
+        validator: validator,
       ),
     );
   }
