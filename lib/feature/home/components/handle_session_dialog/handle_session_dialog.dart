@@ -91,7 +91,10 @@ class HandleSessionDialog extends StatelessWidget {
                 backgroundColor: AppColors.black,
                 textColor: AppColors.white,
                 text: l10n.buttonCancelLabel,
-                onTap: viewModel.onTapCancel,
+                onTap: () {
+                  viewModel.onTapCancel();
+                  Navigator.pop(context);
+                }
               ),
             ),
             Expanded(
