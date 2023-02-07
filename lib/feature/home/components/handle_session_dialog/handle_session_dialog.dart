@@ -94,7 +94,10 @@ class HandleSessionDialog extends StatelessWidget {
                 secondaryColor: AppColors.white,
                 textColor: AppColors.black,
                 text: l10n.buttonCreateSessionLabel,
-                onTap: viewModel.onTapConfirm,
+                onTap: () {
+                  viewModel.onTapConfirm();
+                  FocusScope.of(context).requestFocus(FocusNode());
+                },
               ),
             ),
           ],

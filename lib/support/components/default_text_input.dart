@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:path/path.dart';
 
 import '../style/app_colors.dart';
 import '../style/app_fonts.dart';
@@ -29,9 +31,24 @@ class DefaultTextInput extends StatelessWidget {
           hintText: hint ?? "",
           alignLabelWithHint: true,
           contentPadding: const EdgeInsets.all(30.0),
+          floatingLabelStyle: const TextStyle(color: AppColors.black),
           enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: AppColors.pink, width: 1.5),
-            borderRadius: BorderRadius.all(Radius.circular(20.0))),
+            borderRadius: BorderRadius.all(Radius.circular(20.0))
+          ),
+          focusedBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: AppColors.pink, width: 1.5),
+            borderRadius: BorderRadius.all(Radius.circular(20.0))
+          ),
+          errorBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: AppColors.red, width: 1.5),
+            borderRadius: BorderRadius.all(Radius.circular(20.0))
+          ),
+          focusedErrorBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: AppColors.red, width: 1.5),
+            borderRadius: BorderRadius.all(Radius.circular(20.0))
+          ),
+          errorMaxLines: 6
         ),
         maxLength: maxLength ?? 20,
         keyboardType: inputType ?? TextInputType.text,

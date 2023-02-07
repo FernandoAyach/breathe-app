@@ -19,5 +19,9 @@
   "dialogDefaultDurationTimeHint": "00",
 
   "buttonCreateSessionLabel": "Criar sessão",
-  "buttonCancelLabel": "Cancelar"
+  "buttonCancelLabel": "Cancelar",
+
+  "emptyFieldFormMessage": "Campo Vazio!",
+  "specialCharactersFormMessage": "Caracter inválido",
+  "invalidDurationFormMessage": "Duração inválida!"
 }
