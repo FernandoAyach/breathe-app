@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:path/path.dart';
 
 import '../style/app_colors.dart';
 import '../style/app_fonts.dart';
@@ -11,6 +9,7 @@ class DefaultTextInput extends StatelessWidget {
   final int? maxLength;
   final TextInputType? inputType; 
   final String? Function(String?)? validator;
+  final TextEditingController controller;
 
   const DefaultTextInput({
     super.key, 
@@ -18,7 +17,8 @@ class DefaultTextInput extends StatelessWidget {
     this.label, 
     this.maxLength, 
     this.inputType,
-    this.validator
+    this.validator,
+    required this.controller
   });
 
   @override
@@ -54,6 +54,7 @@ class DefaultTextInput extends StatelessWidget {
         keyboardType: inputType ?? TextInputType.text,
         style: AppFonts.interRegular(18, AppColors.black),
         validator: validator,
+        controller: controller,
       ),
     );
   }

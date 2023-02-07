@@ -8,6 +8,9 @@ import 'package:flutter/material.dart';
 import '../../../../support/utils/localize.dart';
 
 abstract class HandleSessionDialogViewModelProtocol {
+  TextEditingController get sessionNameController;
+  TextEditingController get minuteDurationController;
+  TextEditingController get secondDurationController;
   String? textValidator(String? content);
   String? minuteValidator(String? content);
   String? secondValidator(String? content);
@@ -43,7 +46,8 @@ class HandleSessionDialog extends StatelessWidget {
             children: <Widget>[
               DefaultTextInput(
                 label: l10n.dialogFormSessionNameLabel,
-                validator: viewModel.textValidator
+                validator: viewModel.textValidator,
+                controller: viewModel.sessionNameController,
               ),
               Padding(
                 padding: const EdgeInsets.all(0.0),
@@ -56,6 +60,7 @@ class HandleSessionDialog extends StatelessWidget {
                         maxLength: 2,
                         inputType: TextInputType.number,
                         validator: viewModel.minuteValidator,
+                        controller: viewModel.minuteDurationController,
                       ),
                     ),
                     Expanded(
@@ -65,6 +70,7 @@ class HandleSessionDialog extends StatelessWidget {
                         maxLength: 2,
                         inputType: TextInputType.number,
                         validator: viewModel.secondValidator,
+                        controller: viewModel.secondDurationController,
                       ),
                     ),
                   ],
