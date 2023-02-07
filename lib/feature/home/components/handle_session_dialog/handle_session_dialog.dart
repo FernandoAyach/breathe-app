@@ -30,8 +30,47 @@ class HandleSessionDialog extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Form(
           child: Column(
-            children: <Widget> [
-              DefaultTextInput(hint: l10n.dialogFormSessionNameLabel),
+            children: <Widget>[
+              DefaultTextInput(label: l10n.dialogFormSessionNameLabel),
+              Padding(
+                padding: const EdgeInsets.all(0.0),
+                child: Row(
+                  children: [
+                    /*
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: DefaultTextInput(
+                          label: l10n.dialogHoursLabel,
+                          hint: l10n.dialogDefaultDurationTimeHint,
+                        ),
+                      ),
+                    ),*/
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: DefaultTextInput(
+                          label: l10n.dialogMinutesLabel,
+                          hint: l10n.dialogDefaultDurationTimeHint,
+                          maxLength: 2,
+                          inputType: TextInputType.number
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: DefaultTextInput(
+                          label: l10n.dialogSecondsLabel,
+                          hint: l10n.dialogDefaultDurationTimeHint,
+                          maxLength: 2,
+                          inputType: TextInputType.number,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -42,7 +81,7 @@ class HandleSessionDialog extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-             Expanded(
+            Expanded(
               child: DefaultTextButton(
                 backgroundColor: AppColors.black,
                 textColor: AppColors.white,
