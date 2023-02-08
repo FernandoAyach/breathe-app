@@ -3,5 +3,5 @@ class Session {
   String duration;
   String name;
 
-  Session({required this.duration, required this.name});
+  Session({this.id = 0, required this.duration, required this.name});
 }

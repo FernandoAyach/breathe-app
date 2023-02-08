@@ -8,6 +8,8 @@ import 'home_view_model.dart';
 abstract class HomeViewProtocol extends HomeViewModelProtocol {
   void getSessions();
   void Function()? onTapFloatingActionButton;
+  void Function(int sessionId)? onTapSession;
+  void Function(int sessionId)? onLongTapSession;
 }
 
 abstract class HandleSessionDialogViewProtocol extends HandleSessionDialogViewModelProtocol {
@@ -50,6 +52,17 @@ class _HomeControllerState extends State<HomeController> {
       showDialog(context: context, builder: (context) {
         return HandleSessionDialog(viewModel: widget.handleSessionDialogViewModel);
       });
+    };
+    widget.homeViewModel.onLongTapSession = (sessionId) {
+      showModalBottomSheet(
+        context: context, 
+        builder: (context) {
+          return Column(
+            children: [
+               Text("$sessionId"),
+            ],
+          );
+        });
     };
     widget.handleSessionDialogViewModel.onDismissDialog = () {
       Navigator.pop(context);

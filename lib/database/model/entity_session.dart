@@ -14,6 +14,7 @@ class EntitySession {
 extension MapToSession on EntitySession {
   Session toSession() {
     return Session(
+      id: id,
       duration: duration, 
       name: name
     );

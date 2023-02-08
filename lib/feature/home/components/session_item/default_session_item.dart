@@ -12,6 +12,7 @@ abstract class DefaultSessionItemViewModelProtocol {
   String get sessionDuration;
 
   void didTapSession(int sessionId);
+  void didLongTapSession(int sessionId);
 }
 
 class DefaultSessionItem extends StatelessWidget {
@@ -29,48 +30,52 @@ class DefaultSessionItem extends StatelessWidget {
         elevation: 10,
         borderRadius: BorderRadius.circular(25),
         shadowColor: AppColors.pink,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(25),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-            child: Container(
-                height: 140,
-                width: 140,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25),
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      AppColors.pink.withOpacity(0.35),
-                      AppColors.white,
-                    ],
+        child: InkWell(
+          onLongPress: () => viewModel.didLongTapSession(viewModel.sessionId),
+          onTap: () => viewModel.didTapSession(viewModel.sessionId),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(25),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+              child: Container(
+                  height: 140,
+                  width: 140,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25),
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        AppColors.pink.withOpacity(0.35),
+                        AppColors.white,
+                      ],
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            viewModel.sessionName,
+                            style: AppFonts.interBold(20, AppColors.black),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "${l10n.sessionDurationLabel} ${viewModel.sessionDuration}",
+                            style: AppFonts.interMedium(20, AppColors.black),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          viewModel.sessionName,
-                          style: AppFonts.interBold(20, AppColors.black),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          "${l10n.sessionDurationLabel} ${viewModel.sessionDuration}",
-                          style: AppFonts.interMedium(20, AppColors.black),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
+            ),
           ),
         ),
       ),

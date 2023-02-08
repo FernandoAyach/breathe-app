@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:breathe_app/model/error_handler.dart';
 
 import '../../objectbox.g.dart';
@@ -8,6 +10,11 @@ abstract class SessionRepositoryProtocol {
   void getSessions({Success? success, Failure? failure});
   void addSession({
     required EntitySession session, 
+    Success? success, 
+    Failure? failure
+  });
+  void deleteSession({
+    required int sessionId, 
     Success? success, 
     Failure? failure
   });
@@ -50,6 +57,21 @@ class SessionRepository extends SessionRepositoryProtocol {
       success?.call(sessionId);
     } catch (error) {
       failure?.call(AppError.databaseAddError);
+    }
+  }
+  
+  @override
+  void deleteSession({
+    required int sessionId, 
+    Success? success, 
+    Failure? failure
+  }) async {
+    try {
+      final sessionTable = await _getSessionTable();
+     sessionTable.remove(sessionId);
+      success?.call(Void);
+    } catch (error) {
+      failure?.call(AppError.databaseDeleteError);
     }
   }
 }

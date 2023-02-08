@@ -1,6 +1,7 @@
 import 'package:breathe_app/database/repository/session_repository.dart';
 import 'package:breathe_app/feature/home/components/handle_session_dialog/handle_session_dialog_view_model.dart';
 import 'package:breathe_app/feature/home/use_cases/add_session_use_case.dart';
+import 'package:breathe_app/feature/home/use_cases/delete_session_use_case.dart';
 import 'package:breathe_app/feature/home/use_cases/get_sessions_use_case.dart';
 import 'package:flutter/material.dart';
 
@@ -18,8 +19,11 @@ class HomeFactory {
     final sessionRepository = SessionRepository(database: database);
     final getSessionsUseCase = GetSessionsUseCase(sessionRepository: sessionRepository);
     final addSessionUseCase = AddSessionUseCase(sessionRepository: sessionRepository);
+    final deleteSessionUseCase = DeleteSessionUseCase(sessionRepository: sessionRepository);
+    
     final homeViewModel = HomeViewModel(
       getSessionsUseCase: getSessionsUseCase,
+      deleteSessionUseCase: deleteSessionUseCase,
       l10n: l10n,
     );
     final handleSessionDialogViewModel = HandleSessionDialogViewModel(

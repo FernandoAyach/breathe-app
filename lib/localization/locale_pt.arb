@@ -13,6 +13,7 @@
   "databaseInternalError": "Erro interno ao processar dados do banco",
   "databaseGetError":"Erro ao coletar dados do banco",
   "databaseAddError":"Erro ao adicionar dados ao banco",
+  "databaseDeleteError":"Erro ao deletar dados ao banco",
   "unknownError": "Erro não identificado",
 
   "dialogAddSessionTitle": "Criar nova sessão",
