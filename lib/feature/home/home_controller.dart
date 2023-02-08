@@ -1,3 +1,4 @@
+import 'package:breathe_app/feature/home/components/default_home_bottom_sheet.dart';
 import 'package:breathe_app/feature/home/components/handle_session_dialog/handle_session_dialog.dart';
 import 'package:flutter/material.dart';
 
@@ -8,8 +9,10 @@ import 'home_view_model.dart';
 abstract class HomeViewProtocol extends HomeViewModelProtocol {
   void getSessions();
   void Function()? onTapFloatingActionButton;
+  void Function()? onConfirmBottomSheet;
   void Function(int sessionId)? onTapSession;
   void Function(int sessionId)? onLongTapSession;
+  set longPressedSessionId(int longPressedSessionId);
 }
 
 abstract class HandleSessionDialogViewProtocol extends HandleSessionDialogViewModelProtocol {
@@ -54,22 +57,16 @@ class _HomeControllerState extends State<HomeController> {
       });
     };
     widget.homeViewModel.onLongTapSession = (sessionId) {
+      widget.homeViewModel.longPressedSessionId = (sessionId);
       showModalBottomSheet(
         context: context, 
         builder: (context) {
-          return Column(
-            children: [
-               Text("$sessionId"),
-            ],
-          );
+          return DefaultHomeBottomSheet(viewModel: widget.homeViewModel,);
         });
     };
-    widget.handleSessionDialogViewModel.onDismissDialog = () {
-      Navigator.pop(context);
-    };
-    widget.handleSessionDialogViewModel.onConfirmDialog = () {
-      FocusScope.of(context).requestFocus(FocusNode());
-    };
+    widget.handleSessionDialogViewModel.onDismissDialog = () =>  _popBack();
+    widget.handleSessionDialogViewModel.onConfirmDialog = () => _changeFocus();
+    widget.homeViewModel.onConfirmBottomSheet = () =>  _popBack();
     widget.handleSessionDialogViewModel.onShowSnackBarDialog = (snackbar) {
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
     };
@@ -77,5 +74,13 @@ class _HomeControllerState extends State<HomeController> {
 
   void _getSessions() {
     widget.homeViewModel.getSessions();
+  }
+
+  void _changeFocus() {
+    FocusScope.of(context).requestFocus(FocusNode());
+  }
+
+  void _popBack() {
+    Navigator.pop(context);
   }
 }

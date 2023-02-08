@@ -9,6 +9,8 @@
   "sessionItemMinuteDurationSufixPlural": "minutos",
   "sessionItemSecondDurationSufixSingular": "segundo",
   "sessionItemSecondDurationSufixPlural": "segundos",
+  "buttonDeleteHomeBottomSheet": "Excluir",
+  "buttonEditHomeBottomSheet": "Editar",
 
   "databaseInternalError": "Erro interno ao processar dados do banco",
   "databaseGetError":"Erro ao coletar dados do banco",
