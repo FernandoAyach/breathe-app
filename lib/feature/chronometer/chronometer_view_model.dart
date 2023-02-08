@@ -1,18 +1,20 @@
 import 'dart:async';
 import 'package:breathe_app/feature/chronometer/chronometer_controller.dart';
+import 'package:breathe_app/model/duration_utils.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/session.dart';
 import '../../support/style/app_colors.dart';
 
 class ChronometerViewModel extends ChronometerViewProtocol {
-  static const Duration totalDuration = Duration(hours: 1);
-  static const Duration insertedDuration = Duration(hours: 0, minutes: 59, seconds: 50);
-
-  Duration currentDuration = const Duration(hours: 0, minutes: 59, seconds: 50);
   Timer? timer;
   Icon icon = const Icon(Icons.play_arrow);
   Color iconBackgroundColor = AppColors.green;
+
+  Duration currentDuration = const Duration();
+  Duration totalDuration = const Duration();
+  Duration insertedDuration = const Duration();
+
   final Session session;
 
   ChronometerViewModel({required this.session});
@@ -113,5 +115,10 @@ class ChronometerViewModel extends ChronometerViewProtocol {
   void updateIconToPause() {
     icon = const Icon(Icons.pause);
     iconBackgroundColor = AppColors.red;
+  }
+
+  @override
+  void insertSelectedDuration() {
+    totalDuration =  DurationUtils.convertStringToDuration(session.duration);
   }
 }

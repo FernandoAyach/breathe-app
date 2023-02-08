@@ -24,7 +24,9 @@ class DurationUtils {
     return "$formattedMinutes $formattedSeconds";
   } 
 
-  static Duration convertStringToDuration(String minutes, String seconds) {
+  static Duration convertStringToDuration(String content) {
+    String minutes = breakStringIntoDuration(content)[0];
+    String seconds = breakStringIntoDuration(content)[1];
     int intMinutes = int.parse(minutes);
     int intSeconds = int.parse(seconds);
 

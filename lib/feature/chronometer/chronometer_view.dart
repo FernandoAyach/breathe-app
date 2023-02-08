@@ -65,16 +65,19 @@ class ChronometerView extends StatelessWidget {
           FloatingActionButton(
             onPressed: () {},
             backgroundColor: AppColors.black,
+            heroTag: "btn1",
             child: const Icon(Icons.close),
           ),
           FloatingActionButton(
             onPressed: () { viewModel.updateChronometer(); },
             backgroundColor: viewModel.getColor,
+            heroTag: "btn2",
             child: viewModel.getIcon,
           ),
           FloatingActionButton(
             onPressed: () { viewModel.restartChronometer(); },
             backgroundColor: AppColors.yellow,
+            heroTag: "btn3",
             child: const Icon(Icons.restart_alt),
           ),
         ],
