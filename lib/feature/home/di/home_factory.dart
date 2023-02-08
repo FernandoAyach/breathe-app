@@ -24,6 +24,7 @@ class HomeFactory {
     );
     final handleSessionDialogViewModel = HandleSessionDialogViewModel(
       addSessionUseCase: addSessionUseCase,
+      l10n: l10n,
     );
     
     return HomeController(

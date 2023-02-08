@@ -13,6 +13,7 @@ abstract class HomeViewProtocol extends HomeViewModelProtocol {
 abstract class HandleSessionDialogViewProtocol extends HandleSessionDialogViewModelProtocol {
   void Function()? onDismissDialog;
   void Function()? onConfirmDialog;
+  void Function(SnackBar snackbar)? onShowSnackBarDialog;
 }
 
 class HomeController extends StatefulWidget {
@@ -55,6 +56,9 @@ class _HomeControllerState extends State<HomeController> {
     };
     widget.handleSessionDialogViewModel.onConfirmDialog = () {
       FocusScope.of(context).requestFocus(FocusNode());
+    };
+    widget.handleSessionDialogViewModel.onShowSnackBarDialog = (snackbar) {
+      ScaffoldMessenger.of(context).showSnackBar(snackbar);
     };
   }
 

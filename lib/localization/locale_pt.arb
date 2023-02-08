@@ -5,6 +5,10 @@
   "homeTitle": "Bom dia, Fernando!",
   "homeSubtitle": "Minhas sessões",
   "sessionDurationLabel": "Duração:",
+  "sessionItemMinuteDurationSufixSingular": "minuto",
+  "sessionItemMinuteDurationSufixPlural": "minutos",
+  "sessionItemSecondDurationSufixSingular": "segundo",
+  "sessionItemSecondDurationSufixPlural": "segundos",
 
   "databaseInternalError": "Erro interno ao processar dados do banco",
   "databaseGetError":"Erro ao coletar dados do banco",
@@ -23,5 +27,6 @@
 
   "emptyFieldFormMessage": "Campo Vazio!",
   "specialCharactersFormMessage": "Caracter inválido",
-  "invalidDurationFormMessage": "Duração inválida!"
+  "invalidDurationFormMessage": "Duração inválida!",
+  "durationJustZerosMessage": "Não vale trapacear...coloque uma duração maior!"
 }
