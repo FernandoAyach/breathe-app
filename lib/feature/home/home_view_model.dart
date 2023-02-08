@@ -62,6 +62,11 @@ class HomeViewModel
   void didLongTapSession({required int sessionId}) {
     onLongTapSession?.call(sessionId);
   }
+
+  @override
+  void didTapSession({required Session session}) {
+    onTapSession?.call(session);
+  }
   
   @override
   void didTapDelete() {

@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../model/form_validator.dart';
 import '../../../../model/session.dart';
-import '../../../../support/style/app_colors.dart';
 import '../../use_cases/add_session_use_case.dart';
 import 'package:flutter_gen/gen_l10n/localization.dart';
 
@@ -58,8 +57,9 @@ class HandleSessionDialogViewModel extends HandleSessionDialogViewProtocol {
         _showSnackBar();
       } else {
         _session = Session(
-            duration: DurationUtils.formatDurationOutput(minutes, seconds),
-            name: name);
+          duration: "$minutes $seconds",
+          name: name
+        );
         _addSession();
       }
     }

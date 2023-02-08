@@ -1,9 +1,11 @@
 import 'package:breathe_app/feature/home/components/session_item/default_session_item.dart';
+import 'package:breathe_app/model/duration_utils.dart';
 
 import '../../../../model/session.dart';
 
 abstract class DefaultSessionItemViewModelDelegate {
   void didLongTapSession({required int sessionId});
+  void didTapSession({required Session session});
 }
 
 class DefaultSessionItemViewModel extends DefaultSessionItemViewModelProtocol {
@@ -14,7 +16,9 @@ class DefaultSessionItemViewModel extends DefaultSessionItemViewModelProtocol {
   DefaultSessionItemViewModel({required this.delegate, required this.session});
 
   @override
-  void didTapSession(int sessionId) {}
+  void didTapSession() {
+    delegate.didTapSession(session: session);
+  }
 
   @override
   void didLongTapSession(int sessionId) {
@@ -22,7 +26,7 @@ class DefaultSessionItemViewModel extends DefaultSessionItemViewModelProtocol {
   }
 
   @override
-  String get sessionDuration => session.duration;
+  String get sessionDuration => DurationUtils.formatDurationOutput(session.duration);
 
   @override
   int get sessionId => session.id;

@@ -11,7 +11,7 @@ abstract class DefaultSessionItemViewModelProtocol {
   String get sessionName;
   String get sessionDuration;
 
-  void didTapSession(int sessionId);
+  void didTapSession();
   void didLongTapSession(int sessionId);
 }
 
@@ -32,7 +32,7 @@ class DefaultSessionItem extends StatelessWidget {
         shadowColor: AppColors.pink,
         child: InkWell(
           onLongPress: () => viewModel.didLongTapSession(viewModel.sessionId),
-          onTap: () => viewModel.didTapSession(viewModel.sessionId),
+          onTap: () => viewModel.didTapSession(),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(25),
             child: BackdropFilter(

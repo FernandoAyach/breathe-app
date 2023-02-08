@@ -1,7 +1,9 @@
+import 'package:breathe_app/feature/chronometer/di/chronometer_factory.dart';
 import 'package:breathe_app/feature/home/components/default_home_bottom_sheet.dart';
 import 'package:breathe_app/feature/home/components/handle_session_dialog/handle_session_dialog.dart';
 import 'package:flutter/material.dart';
 
+import '../../model/session.dart';
 import 'components/handle_session_dialog/handle_session_dialog_view_model.dart';
 import 'home_view.dart';
 import 'home_view_model.dart';
@@ -11,7 +13,7 @@ abstract class HomeViewProtocol extends HomeViewModelProtocol {
   void Function()? onTapFloatingActionButton;
   void Function()? onConfirmBottomSheet;
   void Function(SnackBar snackbar)? onDeleteSessionBottomSheet;
-  void Function(int sessionId)? onTapSession;
+  void Function(Session session)? onTapSession;
   void Function(int sessionId)? onLongTapSession;
   set longPressedSessionId(int longPressedSessionId);
 }
@@ -57,6 +59,9 @@ class _HomeControllerState extends State<HomeController> {
         return HandleSessionDialog(viewModel: widget.handleSessionDialogViewModel);
       });
     };
+    widget.homeViewModel.onTapSession = ((session) {
+      Navigator.pushNamed(context, ChronometerFactory.route, arguments: session);
+    });
     widget.homeViewModel.onLongTapSession = (sessionId) {
       widget.homeViewModel.longPressedSessionId = (sessionId);
       showModalBottomSheet(

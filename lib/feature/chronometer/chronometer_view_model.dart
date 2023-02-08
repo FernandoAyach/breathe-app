@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:breathe_app/feature/chronometer/chronometer_controller.dart';
 import 'package:flutter/material.dart';
 
+import '../../model/session.dart';
 import '../../support/style/app_colors.dart';
 
 class ChronometerViewModel extends ChronometerViewProtocol {
@@ -12,6 +13,9 @@ class ChronometerViewModel extends ChronometerViewProtocol {
   Timer? timer;
   Icon icon = const Icon(Icons.play_arrow);
   Color iconBackgroundColor = AppColors.green;
+  final Session session;
+
+  ChronometerViewModel({required this.session});
 
   @override
   void runChronometer() {
