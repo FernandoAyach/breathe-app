@@ -10,6 +10,11 @@ abstract class HomeViewProtocol extends HomeViewModelProtocol {
   void Function()? onTapFloatingActionButton;
 }
 
+abstract class HandleSessionDialogViewProtocol extends HandleSessionDialogViewModelProtocol {
+  void Function()? onDismissDialog;
+  void Function()? onConfirmDialog;
+}
+
 class HomeController extends StatefulWidget {
   final HomeViewModel homeViewModel;
   final HandleSessionDialogViewModel handleSessionDialogViewModel;
@@ -35,6 +40,7 @@ class _HomeControllerState extends State<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    _getSessions();
     return HomeView(viewModel: widget.homeViewModel);
   }
 
@@ -43,6 +49,12 @@ class _HomeControllerState extends State<HomeController> {
       showDialog(context: context, builder: (context) {
         return HandleSessionDialog(viewModel: widget.handleSessionDialogViewModel);
       });
+    };
+    widget.handleSessionDialogViewModel.onDismissDialog = () {
+      Navigator.pop(context);
+    };
+    widget.handleSessionDialogViewModel.onConfirmDialog = () {
+      FocusScope.of(context).requestFocus(FocusNode());
     };
   }
 

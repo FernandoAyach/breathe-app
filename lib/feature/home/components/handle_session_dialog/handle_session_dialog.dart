@@ -11,13 +11,12 @@ abstract class HandleSessionDialogViewModelProtocol {
   TextEditingController get sessionNameController;
   TextEditingController get minuteDurationController;
   TextEditingController get secondDurationController;
+  GlobalKey<FormState> get formKey;
   String? textValidator(String? content);
   String? minuteValidator(String? content);
   String? secondValidator(String? content);
-  GlobalKey<FormState> get formKey;
   void onTapCancel();
   void onTapConfirm();
-  //void addSession();
 }
 
 class HandleSessionDialog extends StatelessWidget {
@@ -91,10 +90,7 @@ class HandleSessionDialog extends StatelessWidget {
                 backgroundColor: AppColors.black,
                 textColor: AppColors.white,
                 text: l10n.buttonCancelLabel,
-                onTap: () {
-                  viewModel.onTapCancel();
-                  Navigator.pop(context);
-                }
+                onTap: () => viewModel.onTapCancel()
               ),
             ),
             Expanded(
@@ -103,10 +99,7 @@ class HandleSessionDialog extends StatelessWidget {
                 secondaryColor: AppColors.white,
                 textColor: AppColors.black,
                 text: l10n.buttonCreateSessionLabel,
-                onTap: () {
-                  viewModel.onTapConfirm();
-                  FocusScope.of(context).requestFocus(FocusNode());
-                },
+                onTap: () => viewModel.onTapConfirm()
               ),
             ),
           ],
