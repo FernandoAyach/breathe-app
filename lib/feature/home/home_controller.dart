@@ -10,6 +10,7 @@ abstract class HomeViewProtocol extends HomeViewModelProtocol {
   void getSessions();
   void Function()? onTapFloatingActionButton;
   void Function()? onConfirmBottomSheet;
+  void Function(SnackBar snackbar)? onDeleteSessionBottomSheet;
   void Function(int sessionId)? onTapSession;
   void Function(int sessionId)? onLongTapSession;
   set longPressedSessionId(int longPressedSessionId);
@@ -67,9 +68,10 @@ class _HomeControllerState extends State<HomeController> {
     widget.handleSessionDialogViewModel.onDismissDialog = () =>  _popBack();
     widget.handleSessionDialogViewModel.onConfirmDialog = () => _changeFocus();
     widget.homeViewModel.onConfirmBottomSheet = () =>  _popBack();
-    widget.handleSessionDialogViewModel.onShowSnackBarDialog = (snackbar) {
-      ScaffoldMessenger.of(context).showSnackBar(snackbar);
-    };
+    widget.homeViewModel.onDeleteSessionBottomSheet = (snackBar) => 
+    showSnackBar(snackBar);
+    widget.handleSessionDialogViewModel.onShowSnackBarDialog = (snackBar) => 
+    showSnackBar(snackBar);
   }
 
   void _getSessions() {
@@ -82,5 +84,9 @@ class _HomeControllerState extends State<HomeController> {
 
   void _popBack() {
     Navigator.pop(context);
+  }
+
+  void showSnackBar(SnackBar snackBar) {
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }

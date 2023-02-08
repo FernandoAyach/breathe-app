@@ -11,6 +11,7 @@
   "sessionItemSecondDurationSufixPlural": "segundos",
   "buttonDeleteHomeBottomSheet": "Excluir",
   "buttonEditHomeBottomSheet": "Editar",
+  "snackBarDeleteMessage": "Sessão deletada com sucesso!",
 
   "databaseInternalError": "Erro interno ao processar dados do banco",
   "databaseGetError":"Erro ao coletar dados do banco",

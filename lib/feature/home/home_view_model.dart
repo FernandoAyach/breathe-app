@@ -5,6 +5,7 @@ import 'package:breathe_app/feature/home/home_controller.dart';
 import 'package:breathe_app/feature/home/use_cases/delete_session_use_case.dart';
 import 'package:breathe_app/feature/home/use_cases/get_sessions_use_case.dart';
 import 'package:breathe_app/model/session.dart';
+import 'package:breathe_app/support/components/default_snack_bar.dart';
 import 'package:flutter_gen/gen_l10n/localization.dart';
 
 class HomeViewModel 
@@ -66,6 +67,9 @@ class HomeViewModel
   void didTapDelete() {
     deleteSession();
     getSessions();
+    onDeleteSessionBottomSheet?.call(
+      getDefaultTextSnackBar(l10n.snackBarDeleteMessage)
+    );
     onConfirmBottomSheet?.call();
   }
 
