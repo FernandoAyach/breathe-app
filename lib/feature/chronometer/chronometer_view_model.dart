@@ -12,7 +12,6 @@ class ChronometerViewModel extends ChronometerViewProtocol {
   Color iconBackgroundColor = AppColors.green;
 
   Duration currentDuration = const Duration();
-  Duration totalDuration = const Duration();
   Duration insertedDuration = const Duration();
 
   final Session session;
@@ -21,7 +20,7 @@ class ChronometerViewModel extends ChronometerViewProtocol {
 
   @override
   void runChronometer() {
-    timer = Timer.periodic(const Duration(seconds: 1), (_) => addTime());
+    timer = Timer.periodic(const Duration(seconds: 1), (_) => decreaseTime());
     notifyListeners();
   }
 
@@ -67,6 +66,17 @@ class ChronometerViewModel extends ChronometerViewProtocol {
     notifyListeners();
   }
 
+  @override
+  void insertSelectedDuration() {
+    insertedDuration =  DurationUtils.convertStringToDuration(session.duration);
+    currentDuration = insertedDuration;
+  }
+  
+  @override
+  void didTapLeaveSession() {
+    onTapLeaveSession?.call();
+  }
+
   int handleTime(int time, String type) {
     if (type == "seconds") {
       return time - (60 * currentDuration.inMinutes);
@@ -74,13 +84,13 @@ class ChronometerViewModel extends ChronometerViewProtocol {
     return time - (60 * currentDuration.inHours);
   }
 
-  void addTime() {
+  void decreaseTime() {
     currentDuration = Duration(
       hours: currentDuration.inHours,
       minutes: handleTime(currentDuration.inMinutes, "minutes"),
-      seconds: handleTime(currentDuration.inSeconds, "seconds") + 1
+      seconds: handleTime(currentDuration.inSeconds, "seconds") - 1
     );
-    if (currentDuration > totalDuration) {
+    if (currentDuration == Duration.zero) {
       timer?.cancel();
       currentDuration = const Duration();
     }
@@ -88,7 +98,7 @@ class ChronometerViewModel extends ChronometerViewProtocol {
   }
 
   String formatDuration() {
-    String formattedDuration = "0${currentDuration.inHours}:";
+    String formattedDuration = "";
     int seconds = handleTime(currentDuration.inSeconds, "seconds");
     int minutes = handleTime(currentDuration.inMinutes, "minutes");
 
@@ -115,15 +125,5 @@ class ChronometerViewModel extends ChronometerViewProtocol {
   void updateIconToPause() {
     icon = const Icon(Icons.pause);
     iconBackgroundColor = AppColors.red;
-  }
-
-  @override
-  void insertSelectedDuration() {
-    totalDuration =  DurationUtils.convertStringToDuration(session.duration);
-  }
-  
-  @override
-  void didTapLeaveSession() {
-    onTapLeaveSession?.call();
   }
 }

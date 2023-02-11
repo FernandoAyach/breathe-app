@@ -27,7 +27,7 @@ class GetSessionsUseCase extends GetSessionsUseCaseProtocol {
           });
           success(sessions);
         } catch (error) {
-          failure(ErrorHandler(errorType: AppError.databaseGetError)
+          failure(ErrorHandler(errorType: AppError.databaseInternalError)
               .errorDescription);
         }
       },
