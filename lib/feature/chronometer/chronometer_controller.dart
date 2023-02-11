@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 abstract class ChronometerViewProtocol extends ChronometerViewModelProtocol {
   void insertSelectedDuration();
+  void Function()? onTapLeaveSession;
 }
 
 class ChronometerController extends StatefulWidget {
@@ -29,5 +30,10 @@ class _ChronometerControllerState extends State<ChronometerController> {
 
   void _bind() {
     widget.viewModel.insertSelectedDuration();
+    widget.viewModel.onTapLeaveSession = () => _popBack();
+  }
+
+  void _popBack() {
+    Navigator.pop(context);
   }
 }

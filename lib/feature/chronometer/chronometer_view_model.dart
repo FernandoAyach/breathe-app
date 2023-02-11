@@ -121,4 +121,9 @@ class ChronometerViewModel extends ChronometerViewProtocol {
   void insertSelectedDuration() {
     totalDuration =  DurationUtils.convertStringToDuration(session.duration);
   }
+  
+  @override
+  void didTapLeaveSession() {
+    onTapLeaveSession?.call();
+  }
 }
