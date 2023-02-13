@@ -13,8 +13,10 @@ class ChronometerViewModel extends ChronometerViewProtocol {
 
   Duration currentDuration = const Duration();
   Duration insertedDuration = const Duration();
+  double _progress = 0;
 
   final Session session;
+ 
 
   ChronometerViewModel({required this.session});
 
@@ -90,6 +92,7 @@ class ChronometerViewModel extends ChronometerViewProtocol {
       timer?.cancel();
       currentDuration = const Duration();
     }
+    setProgress();
     notifyListeners();
   }
 
@@ -121,5 +124,12 @@ class ChronometerViewModel extends ChronometerViewProtocol {
   void updateIconToPause() {
     icon = const Icon(Icons.pause);
     iconBackgroundColor = AppColors.red;
+  }
+  
+  @override
+  double get progress => _progress;
+
+  void setProgress() {
+    _progress = currentDuration.inSeconds / insertedDuration.inSeconds;
   }
 }

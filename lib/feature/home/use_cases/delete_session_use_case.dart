@@ -1,6 +1,5 @@
 import '../../../database/repository/session_repository.dart';
 import '../../../model/error_handler.dart';
-import '../../../model/session.dart';
 
 typedef Failure = void Function(String failure);
 typedef Success = void Function();

@@ -13,6 +13,7 @@ abstract class ChronometerViewModelProtocol with ChangeNotifier {
   Icon get getIcon;
   bool get isChronometerActive;
   String get getDuration;
+  double get progress;
 }
 
 class ChronometerView extends StatelessWidget {
@@ -40,6 +41,11 @@ class ChronometerView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         _counter(),
+        /*
+        CircularProgressIndicator(
+          value: viewModel.progress,
+          color: AppColors.pink,
+        ),*/
         _chronometerButtons(),
       ],
     );

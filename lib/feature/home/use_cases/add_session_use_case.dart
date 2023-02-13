@@ -5,7 +5,7 @@ import '../../../model/error_handler.dart';
 import '../../../model/session.dart';
 
 typedef Failure = void Function(String failure);
-typedef Success = void Function(Session session);
+typedef Success = void Function();
 
 abstract class AddSessionUseCaseProtocol {
   void execute({
@@ -30,7 +30,7 @@ class  AddSessionUseCase extends AddSessionUseCaseProtocol {
       session: session.fromSession(),
       success: (result) {
         try {
-          success(result);
+          success();
         } catch (error) {
           failure(ErrorHandler(errorType: AppError.databaseInternalError)
               .errorDescription);

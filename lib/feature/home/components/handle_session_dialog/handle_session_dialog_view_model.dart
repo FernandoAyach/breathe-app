@@ -52,7 +52,7 @@ class HandleSessionDialogViewModel extends HandleSessionDialogViewProtocol {
       String name = _sessionNameController.text;
 
       if (FormValidator.minutesAndSecondZero(minutes, seconds)) {
-        _showSnackBar();
+        _showSnackBar(getDefaultTextSnackBar(l10n.durationJustZerosMessage));
       } else {
         _session = Session(
           duration: "$minutes $seconds",
@@ -69,10 +69,9 @@ class HandleSessionDialogViewModel extends HandleSessionDialogViewProtocol {
     if (_session != null) {
       addSessionUseCase.execute(
         session: _session!,
-        success: (result) {},
+        success: () {},
         failure: (errorDescription) {
-          _dismissDialog();
-          getDefaultTextSnackBar(errorDescription);
+          _showSnackBar(getDefaultTextSnackBar(errorDescription));
         }
       );
     }
@@ -106,7 +105,7 @@ class HandleSessionDialogViewModel extends HandleSessionDialogViewProtocol {
     _sessionNameController.clear();
   }
 
-  void _showSnackBar() {
-    onShowSnackBarDialog?.call(getDefaultTextSnackBar(l10n.durationJustZerosMessage));
+  void _showSnackBar(SnackBar snackBar) {
+    onShowSnackBarDialog?.call(snackBar);
   }
 }
