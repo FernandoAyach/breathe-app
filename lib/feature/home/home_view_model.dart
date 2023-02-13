@@ -59,10 +59,14 @@ class HomeViewModel
 
   @override
   void getSessions() {
+    _isSessionsListEmpty = false;
     setLoading(true);
     getSessionsUseCase.execute(
       success: (results) {
         _sessions = results;
+        if(_sessions.isEmpty) {
+          _isSessionsListEmpty = true;
+        }
         setLoading(false);
         setError("", false);
       }, 

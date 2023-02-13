@@ -1,7 +1,5 @@
 import 'package:breathe_app/feature/home/home_controller.dart';
-import 'package:breathe_app/model/duration_utils.dart';
 import 'package:breathe_app/support/components/default_snack_bar.dart';
-import 'package:breathe_app/support/style/app_fonts.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../model/form_validator.dart';
@@ -70,9 +68,13 @@ class HandleSessionDialogViewModel extends HandleSessionDialogViewProtocol {
     _clearFields();
     if (_session != null) {
       addSessionUseCase.execute(
-          session: _session!,
-          success: (result) {},
-          failure: (errorDescription) {});
+        session: _session!,
+        success: (result) {},
+        failure: (errorDescription) {
+          _dismissDialog();
+          getDefaultTextSnackBar(errorDescription);
+        }
+      );
     }
   }
 
