@@ -77,18 +77,14 @@ class ChronometerViewModel extends ChronometerViewProtocol {
     onTapLeaveSession?.call();
   }
 
-  int handleTime(int time, String type) {
-    if (type == "seconds") {
-      return time - (60 * currentDuration.inMinutes);
-    }
-    return time - (60 * currentDuration.inHours);
+  int handleSeconds(int time) {
+    return time - (60 * currentDuration.inMinutes);
   }
 
   void decreaseTime() {
     currentDuration = Duration(
-      hours: currentDuration.inHours,
-      minutes: handleTime(currentDuration.inMinutes, "minutes"),
-      seconds: handleTime(currentDuration.inSeconds, "seconds") - 1
+      minutes: currentDuration.inMinutes,
+      seconds: handleSeconds(currentDuration.inSeconds) - 1
     );
     if (currentDuration == Duration.zero) {
       timer?.cancel();
@@ -99,8 +95,8 @@ class ChronometerViewModel extends ChronometerViewProtocol {
 
   String formatDuration() {
     String formattedDuration = "";
-    int seconds = handleTime(currentDuration.inSeconds, "seconds");
-    int minutes = handleTime(currentDuration.inMinutes, "minutes");
+    int seconds = handleSeconds(currentDuration.inSeconds);
+    int minutes = currentDuration.inMinutes;
 
     if (minutes < 10) {
       formattedDuration += "0$minutes:";
