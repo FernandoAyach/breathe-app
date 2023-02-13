@@ -21,6 +21,10 @@ class DurationUtils {
     } else if(int.parse(seconds) > 1) {
       formattedSeconds = "$seconds ${l10n.sessionItemSecondDurationSufixPlural}";
     }
+
+    if(int.parse(minutes) != 0 && int.parse(seconds) != 0) {
+      return "$formattedMinutes e $formattedSeconds";
+    }
     return "$formattedMinutes $formattedSeconds";
   } 
 

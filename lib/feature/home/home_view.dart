@@ -1,5 +1,8 @@
 import 'package:breathe_app/feature/home/components/default_session_list_view.dart';
+import 'package:breathe_app/feature/home/components/empty_session_list_placeholder.dart';
 import 'package:breathe_app/feature/home/components/session_item/default_session_item.dart';
+import 'package:breathe_app/support/components/error_placeholder_view.dart';
+import 'package:breathe_app/support/components/loading_placeholder_view.dart';
 import 'package:breathe_app/support/style/app_colors.dart';
 import 'package:breathe_app/support/style/app_fonts.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +11,10 @@ import '../../support/utils/localize.dart';
 
 abstract class HomeViewModelProtocol with ChangeNotifier {
   List<DefaultSessionItemViewModelProtocol> get sessions;
+  bool get hasSessionsError;
+  bool get isSessionsLoading;
+  bool get isSessionsListEmpty;
+  String get sessionsErrorDescription;
   void didTapFloatingActionButton();
 }
 
@@ -18,6 +25,7 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -78,6 +86,17 @@ class HomeView extends StatelessWidget {
   }
 
   Widget _sessionList() {
+    
+    if(viewModel.isSessionsLoading) {
+      return const LoadingPlaceholderView();
+    } else if(viewModel.hasSessionsError) {
+      return ErrorPlaceHolderView(
+        errorDescription: viewModel.sessionsErrorDescription,
+      );
+    } else if(viewModel.isSessionsListEmpty) {
+      return const EmptySessionListPlaceholderView();
+    }
+
     return Expanded(
       child: DefaultSessionListView(sessions: viewModel.sessions),
     );

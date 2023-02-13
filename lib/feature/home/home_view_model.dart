@@ -11,18 +11,36 @@ import 'package:flutter_gen/gen_l10n/localization.dart';
 class HomeViewModel 
   extends HomeViewProtocol 
   implements DefaultSessionItemViewModelDelegate, DefaultHomeBottomSheetDelegate {
-  GetSessionsUseCaseProtocol getSessionsUseCase;
-  DeleteSessionUseCaseProtocol deleteSessionUseCase;
-  
+
+  final GetSessionsUseCaseProtocol getSessionsUseCase;
+  final DeleteSessionUseCaseProtocol deleteSessionUseCase;
   final Localization l10n;
+
   List<Session> _sessions = [];
   int _longPressedSessionId = 0;
+  bool _isSessionsLoading = false;
+  bool _isSessionsListEmpty = false;
+  bool _hasSessionsError = false;
+  String _sessionErrorDescription = "";
+
 
   HomeViewModel({
     required this.getSessionsUseCase, 
     required this.deleteSessionUseCase, 
     required this.l10n
   });
+
+  @override
+  bool get hasSessionsError => _hasSessionsError;
+  
+  @override
+  bool get isSessionsListEmpty => _isSessionsListEmpty;
+  
+  @override
+  bool get isSessionsLoading => _isSessionsLoading;
+  
+  @override
+  String get sessionsErrorDescription => _sessionErrorDescription;
 
   @override
   set longPressedSessionId(int longPressedSessionId) {
@@ -41,14 +59,15 @@ class HomeViewModel
 
   @override
   void getSessions() {
+    setLoading(true);
     getSessionsUseCase.execute(
       success: (results) {
         _sessions = results;
-        notifyListeners();
+        setLoading(false);
+        setError("", false);
       }, 
       failure: (errorDescription) {
-        //Implementar mensagem de erro
-        notifyListeners();
+        setError(errorDescription, true);
       }
     );
   }
@@ -79,13 +98,29 @@ class HomeViewModel
   }
 
   void deleteSession() {
+    setLoading(true);
     deleteSessionUseCase.execute(
       sessionId: _longPressedSessionId, 
-      success: () { notifyListeners(); }, 
+      success: () { 
+        setLoading(false);
+        setError("", false);
+        notifyListeners(); 
+      }, 
       failure: (errorDescription) {
-        //Implementar mensagem de erro
+        setError(errorDescription, true);
         notifyListeners();
       }
     );
+  }
+
+  void setLoading(bool loading) {
+    _isSessionsLoading = loading;
+    notifyListeners();
+  }
+
+  void setError(String errorDescription, bool hasError) {
+    _hasSessionsError = hasError;
+    _sessionErrorDescription = errorDescription;
+    notifyListeners();
   }
 }

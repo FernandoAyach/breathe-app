@@ -68,7 +68,7 @@ class SessionRepository extends SessionRepositoryProtocol {
   }) async {
     try {
       final sessionTable = await _getSessionTable();
-     sessionTable.remove(sessionId);
+      sessionTable.remove(sessionId);
       success?.call(Void);
     } catch (error) {
       failure?.call(AppError.databaseDeleteError);
