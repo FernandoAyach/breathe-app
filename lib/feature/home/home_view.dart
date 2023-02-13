@@ -89,14 +89,16 @@ class HomeView extends StatelessWidget {
     
     if(viewModel.isSessionsLoading) {
       return const LoadingPlaceholderView();
-    } else if(viewModel.hasSessionsError) {
+    } 
+    if(viewModel.hasSessionsError) {
       return ErrorPlaceHolderView(
         errorDescription: viewModel.sessionsErrorDescription,
       );
-    } else if(viewModel.isSessionsListEmpty) {
+    } 
+    if(viewModel.isSessionsListEmpty) {
       return const EmptySessionListPlaceholderView();
     }
-
+    
     return Expanded(
       child: DefaultSessionListView(sessions: viewModel.sessions),
     );

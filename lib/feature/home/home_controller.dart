@@ -43,7 +43,7 @@ class _HomeControllerState extends State<HomeController> {
   @override
   void initState() {
     _bind();
-    _getSessions();
+    //_getSessions();
     super.initState();
   }
 
