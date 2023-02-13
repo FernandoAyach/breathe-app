@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 abstract class ChronometerViewProtocol extends ChronometerViewModelProtocol {
   void insertSelectedDuration();
   void Function()? onTapLeaveSession;
+  void Function(SnackBar snackBar)? onFinishSession;
 }
 
 class ChronometerController extends StatefulWidget {
@@ -31,9 +32,17 @@ class _ChronometerControllerState extends State<ChronometerController> {
   void _bind() {
     widget.viewModel.insertSelectedDuration();
     widget.viewModel.onTapLeaveSession = () => _popBack();
+    widget.viewModel.onFinishSession = (snackBar) => {
+      _popBack(),
+      _showSnackBar(snackBar)
+    };
   }
 
   void _popBack() {
     Navigator.pop(context);
+  }
+
+  void _showSnackBar(SnackBar snackBar) {
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }

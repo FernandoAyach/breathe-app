@@ -41,11 +41,6 @@ class ChronometerView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         _counter(),
-        /*
-        CircularProgressIndicator(
-          value: viewModel.progress,
-          color: AppColors.pink,
-        ),*/
         _chronometerButtons(),
       ],
     );
@@ -55,9 +50,15 @@ class ChronometerView extends StatelessWidget {
     return Flexible(
       flex: 5,
       child: Center(
-        child: Text(
-          viewModel.getDuration,
-          style: AppFonts.interRegular(40, AppColors.black),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              viewModel.getDuration,
+              style: AppFonts.interRegular(40, AppColors.black),
+            ),
+            _circularProgressBar(),
+          ],
         ),
       ),
     );
@@ -70,24 +71,40 @@ class ChronometerView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           FloatingActionButton(
-            onPressed: () { viewModel.didTapLeaveSession(); },
+            onPressed: () {
+              viewModel.didTapLeaveSession();
+            },
             backgroundColor: AppColors.black,
             heroTag: "btn1",
             child: const Icon(Icons.close),
           ),
           FloatingActionButton(
-            onPressed: () { viewModel.updateChronometer(); },
+            onPressed: () {
+              viewModel.updateChronometer();
+            },
             backgroundColor: viewModel.getColor,
             heroTag: "btn2",
             child: viewModel.getIcon,
           ),
           FloatingActionButton(
-            onPressed: () { viewModel.restartChronometer(); },
+            onPressed: () {
+              viewModel.restartChronometer();
+            },
             backgroundColor: AppColors.yellow,
             heroTag: "btn3",
             child: const Icon(Icons.restart_alt),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _circularProgressBar() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: CircularProgressIndicator(
+        value: viewModel.progress,
+        color: AppColors.pink,
       ),
     );
   }

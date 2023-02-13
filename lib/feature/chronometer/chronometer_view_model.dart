@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:breathe_app/feature/chronometer/chronometer_controller.dart';
 import 'package:breathe_app/model/duration_utils.dart';
+import 'package:breathe_app/support/components/default_snack_bar.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/session.dart';
@@ -91,6 +92,7 @@ class ChronometerViewModel extends ChronometerViewProtocol {
     if (currentDuration == Duration.zero) {
       timer?.cancel();
       currentDuration = const Duration();
+      didFinishLesson(getDefaultTextSnackBar("Sessão finalizada"));
     }
     setProgress();
     notifyListeners();
@@ -131,5 +133,9 @@ class ChronometerViewModel extends ChronometerViewProtocol {
 
   void setProgress() {
     _progress = currentDuration.inSeconds / insertedDuration.inSeconds;
+  }
+
+  void didFinishLesson(SnackBar snackBar) {
+    onFinishSession?.call(snackBar);
   }
 }
