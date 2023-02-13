@@ -42,7 +42,7 @@ class FormValidator {
   }
 
   static bool hasSpecialCharacters(String content) {
-    final validCharacters = RegExp(r'^[a-zA-Z0-9]+$');
+    final validCharacters = RegExp(r'^[a-zA-Z0-9 ]+$');
     if (validCharacters.hasMatch(content)) {
       return false;
     }
