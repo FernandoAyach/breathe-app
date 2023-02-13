@@ -61,14 +61,14 @@ class DefaultSessionItem extends StatelessWidget {
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                             viewModel.sessionName,
-                            style: AppFonts.interBold(20, AppColors.black),
+                            style: AppFonts.interMedium(20, AppColors.black),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                             "${l10n.sessionDurationLabel} ${viewModel.sessionDuration}",
-                            style: AppFonts.interMedium(20, AppColors.black),
+                            style: AppFonts.interRegular(20, AppColors.black.withOpacity(0.95)),
                           ),
                         )
                       ],

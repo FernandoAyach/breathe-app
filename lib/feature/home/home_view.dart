@@ -60,7 +60,7 @@ class HomeView extends StatelessWidget {
           child: Expanded(
             child: Text(
               l10n.homeTitle,
-              style: AppFonts.interBold(
+              style: AppFonts.interSemiBold(
                 20,
                 AppColors.black,
               ),
@@ -75,7 +75,7 @@ class HomeView extends StatelessWidget {
           padding: const EdgeInsets.only(top: 8, bottom: 8, left: 20),
           child: Text(
             l10n.homeSubtitle,
-            style: AppFonts.interBold(
+            style: AppFonts.interMedium(
               18,
               AppColors.black,
             ),
