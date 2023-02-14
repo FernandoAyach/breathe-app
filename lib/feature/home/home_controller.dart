@@ -9,13 +9,13 @@ import 'home_view.dart';
 import 'home_view_model.dart';
 
 abstract class HomeViewProtocol extends HomeViewModelProtocol {
-  void getSessions();
+  set longPressedSessionId(int longPressedSessionId);
   void Function()? onTapFloatingActionButton;
   void Function()? onConfirmBottomSheet;
   void Function(SnackBar snackbar)? onDeleteSessionBottomSheet;
   void Function(Session session)? onTapSession;
   void Function(int sessionId)? onLongTapSession;
-  set longPressedSessionId(int longPressedSessionId);
+  void getSessions();
 }
 
 abstract class HandleSessionDialogViewProtocol extends HandleSessionDialogViewModelProtocol {
@@ -58,9 +58,6 @@ class _HomeControllerState extends State<HomeController> {
         return HandleSessionDialog(viewModel: widget.handleSessionDialogViewModel);
       });
     };
-    widget.homeViewModel.onTapSession = ((session) {
-      Navigator.pushNamed(context, ChronometerFactory.route, arguments: session);
-    });
     widget.homeViewModel.onLongTapSession = (sessionId) {
       widget.homeViewModel.longPressedSessionId = (sessionId);
       showModalBottomSheet(
@@ -69,13 +66,19 @@ class _HomeControllerState extends State<HomeController> {
           return DefaultHomeBottomSheet(viewModel: widget.homeViewModel,);
         });
     };
+    widget.homeViewModel.onTapSession = ((session) {
+      Navigator.pushNamed(context, ChronometerFactory.route, arguments: session);
+    });
+
+    widget.homeViewModel.onDeleteSessionBottomSheet = (snackBar) {
+      showSnackBar(snackBar);
+    };
+    widget.handleSessionDialogViewModel.onShowSnackBarDialog = (snackBar) {
+      showSnackBar(snackBar);
+    };
     widget.handleSessionDialogViewModel.onDismissDialog = () =>  _popBack();
     widget.handleSessionDialogViewModel.onConfirmDialog = () => _changeFocus();
     widget.homeViewModel.onConfirmBottomSheet = () =>  _popBack();
-    widget.homeViewModel.onDeleteSessionBottomSheet = (snackBar) => 
-    showSnackBar(snackBar);
-    widget.handleSessionDialogViewModel.onShowSnackBarDialog = (snackBar) => 
-    showSnackBar(snackBar);
   }
 
   void _getSessions() {

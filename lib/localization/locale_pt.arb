@@ -26,11 +26,15 @@
   "dialogSecondsLabel": "Sec",
   "dialogDefaultDurationTimeHint": "00",
 
+  "emptySessionListPlaceholderTitle": "Nenhuma sessão adicionada!",
+
   "buttonCreateSessionLabel": "Criar sessão",
   "buttonCancelLabel": "Cancelar",
 
   "emptyFieldFormMessage": "Campo Vazio!",
   "specialCharactersFormMessage": "Caracter inválido",
   "invalidDurationFormMessage": "Duração inválida!",
-  "durationJustZerosMessage": "Não vale trapacear...coloque uma duração maior!"
+  "durationJustZerosMessage": "Não vale trapacear...coloque uma duração maior!",
+
+  "chronometerSnackBarFinishLessonText": "Sessão finalizada"
 }

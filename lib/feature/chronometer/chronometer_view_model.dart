@@ -3,9 +3,11 @@ import 'package:breathe_app/feature/chronometer/chronometer_controller.dart';
 import 'package:breathe_app/model/duration_utils.dart';
 import 'package:breathe_app/support/components/default_snack_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/localization.dart';
 
 import '../../model/session.dart';
 import '../../support/style/app_colors.dart';
+
 
 class ChronometerViewModel extends ChronometerViewProtocol {
   Timer? timer;
@@ -17,9 +19,29 @@ class ChronometerViewModel extends ChronometerViewProtocol {
   double _progress = 0;
 
   final Session session;
+  final Localization l10n;
  
+  ChronometerViewModel({required this.session, required this.l10n});
 
-  ChronometerViewModel({required this.session});
+  @override
+  bool get isChronometerActive {
+    if (timer != null) {
+      return timer!.isActive;
+    }
+    return false;
+  }
+
+  @override
+  String get getDuration => formatDuration();
+
+  @override
+  Color get getColor => iconBackgroundColor;
+
+  @override
+  Icon get getIcon => icon;
+
+  @override
+  double get progress => _progress;
 
   @override
   void runChronometer() {
@@ -43,23 +65,6 @@ class ChronometerViewModel extends ChronometerViewProtocol {
     }
     notifyListeners();
   }
-
-  @override
-  bool get isChronometerActive {
-    if (timer != null) {
-      return timer!.isActive;
-    }
-    return false;
-  }
-
-  @override
-  String get getDuration => formatDuration();
-
-  @override
-  Color get getColor => iconBackgroundColor;
-
-  @override
-  Icon get getIcon => icon;
 
   @override
   void restartChronometer() {
@@ -92,7 +97,9 @@ class ChronometerViewModel extends ChronometerViewProtocol {
     if (currentDuration == Duration.zero) {
       timer?.cancel();
       currentDuration = const Duration();
-      didFinishLesson(getDefaultTextSnackBar("Sessão finalizada"));
+      didFinishLesson(getDefaultTextSnackBar(
+        l10n.chronometerSnackBarFinishLessonText
+      ));
     }
     setProgress();
     notifyListeners();
@@ -127,10 +134,7 @@ class ChronometerViewModel extends ChronometerViewProtocol {
     icon = const Icon(Icons.pause);
     iconBackgroundColor = AppColors.red;
   }
-  
-  @override
-  double get progress => _progress;
-
+ 
   void setProgress() {
     _progress = currentDuration.inSeconds / insertedDuration.inSeconds;
   }

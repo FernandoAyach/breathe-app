@@ -4,16 +4,16 @@ import 'package:breathe_app/support/style/app_fonts.dart';
 import 'package:flutter/material.dart';
 
 abstract class ChronometerViewModelProtocol with ChangeNotifier {
-  void runChronometer();
-  void stopChronometer();
-  void updateChronometer();
-  void restartChronometer();
-  void didTapLeaveSession();
   Color get getColor;
   Icon get getIcon;
   bool get isChronometerActive;
   String get getDuration;
   double get progress;
+  void runChronometer();
+  void stopChronometer();
+  void updateChronometer();
+  void restartChronometer();
+  void didTapLeaveSession();
 }
 
 class ChronometerView extends StatelessWidget {

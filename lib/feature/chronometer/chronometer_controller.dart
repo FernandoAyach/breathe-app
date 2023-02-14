@@ -2,9 +2,9 @@ import 'package:breathe_app/feature/chronometer/chronometer_view.dart';
 import 'package:flutter/material.dart';
 
 abstract class ChronometerViewProtocol extends ChronometerViewModelProtocol {
-  void insertSelectedDuration();
   void Function()? onTapLeaveSession;
   void Function(SnackBar snackBar)? onFinishSession;
+  void insertSelectedDuration();
 }
 
 class ChronometerController extends StatefulWidget {

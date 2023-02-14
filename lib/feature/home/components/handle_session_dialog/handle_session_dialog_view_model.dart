@@ -23,6 +23,20 @@ class HandleSessionDialogViewModel extends HandleSessionDialogViewProtocol {
       {required this.addSessionUseCase, required this.l10n});
 
   @override
+  GlobalKey<FormState> get formKey => _formKey;
+
+  @override
+  TextEditingController get minuteDurationController =>
+      _minuteDurationController;
+
+  @override
+  TextEditingController get secondDurationController =>
+      _secondDurationController;
+
+  @override
+  TextEditingController get sessionNameController => _sessionNameController;
+
+  @override
   String? textValidator(String? content) {
     return FormValidator.defaultValidation(content!);
   }
@@ -76,20 +90,6 @@ class HandleSessionDialogViewModel extends HandleSessionDialogViewProtocol {
       );
     }
   }
-
-  @override
-  GlobalKey<FormState> get formKey => _formKey;
-
-  @override
-  TextEditingController get minuteDurationController =>
-      _minuteDurationController;
-
-  @override
-  TextEditingController get secondDurationController =>
-      _secondDurationController;
-
-  @override
-  TextEditingController get sessionNameController => _sessionNameController;
 
   void _dismissDialog() {
     onDismissDialog?.call();
