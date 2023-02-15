@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:breathe_app/feature/chronometer/chronometer_controller.dart';
-import 'package:breathe_app/model/duration_utils.dart';
+import 'package:breathe_app/support/extensions/duration_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/localization.dart';
 
@@ -78,7 +78,7 @@ class ChronometerViewModel extends ChronometerViewProtocol {
 
   @override
   void insertSelectedDuration() {
-    insertedDuration =  DurationUtils.convertStringToDuration(session.duration);
+    insertedDuration =  convertStringToDuration(session.duration);
     currentDuration = insertedDuration;
   }
   

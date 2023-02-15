@@ -1,5 +1,5 @@
 import 'package:breathe_app/feature/home/components/session_item/default_session_item.dart';
-import 'package:breathe_app/model/duration_utils.dart';
+import 'package:breathe_app/support/extensions/duration_extensions.dart';
 
 import '../../../../model/session.dart';
 
@@ -26,7 +26,7 @@ class DefaultSessionItemViewModel extends DefaultSessionItemViewModelProtocol {
   }
 
   @override
-  String get sessionDuration => DurationUtils.formatDurationOutput(session.duration);
+  String get sessionDuration => formatDurationOutput(session.duration);
 
   @override
   int get sessionId => session.id;

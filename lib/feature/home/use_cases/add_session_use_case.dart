@@ -1,4 +1,5 @@
 import 'package:breathe_app/api/database/model/entity_session.dart';
+import 'package:breathe_app/support/extensions/validation_extension.dart';
 
 import '../../../api/database/repository/session_repository.dart';
 import '../../../model/error_handler.dart';
