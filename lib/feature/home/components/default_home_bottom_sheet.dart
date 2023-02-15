@@ -23,7 +23,7 @@ class DefaultHomeBottomSheet extends StatelessWidget {
         InkWell(
           onTap: () => viewModel.didTapDelete(),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             child: ListTile(
               leading: const Icon(Icons.close, color: AppColors.red,),
               title: Text(
@@ -33,7 +33,7 @@ class DefaultHomeBottomSheet extends StatelessWidget {
             ),
           ),
         ),
-        const Divider(thickness: 1.0),
+        const Divider(thickness: 1),
       ],
     );
   }

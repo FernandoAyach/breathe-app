@@ -1,9 +1,10 @@
 import 'package:breathe_app/feature/chronometer/chronometer_view.dart';
+import 'package:breathe_app/support/extensions/state_extension.dart';
 import 'package:flutter/material.dart';
 
 abstract class ChronometerViewProtocol extends ChronometerViewModelProtocol {
   void Function()? onTapLeaveSession;
-  void Function(SnackBar snackBar)? onFinishSession;
+  void Function(String textContent)? onFinishSession;
   void insertSelectedDuration();
 }
 
@@ -32,9 +33,9 @@ class _ChronometerControllerState extends State<ChronometerController> {
   void _bind() {
     widget.viewModel.insertSelectedDuration();
     widget.viewModel.onTapLeaveSession = () => _popBack();
-    widget.viewModel.onFinishSession = (snackBar) => {
+    widget.viewModel.onFinishSession = (textContent) => {
       _popBack(),
-      _showSnackBar(snackBar)
+      _showSnackBar(textContent)
     };
   }
 
@@ -42,7 +43,7 @@ class _ChronometerControllerState extends State<ChronometerController> {
     Navigator.pop(context);
   }
 
-  void _showSnackBar(SnackBar snackBar) {
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  void _showSnackBar(String textContent) {
+    showTextSnackBar(textContent);
   }
 }

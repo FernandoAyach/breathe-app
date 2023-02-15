@@ -75,7 +75,7 @@ class ChronometerView extends StatelessWidget {
               viewModel.didTapLeaveSession();
             },
             backgroundColor: AppColors.black,
-            heroTag: "btn1",
+            heroTag: 'btn1',
             child: const Icon(Icons.close),
           ),
           FloatingActionButton(
@@ -83,7 +83,7 @@ class ChronometerView extends StatelessWidget {
               viewModel.updateChronometer();
             },
             backgroundColor: viewModel.getColor,
-            heroTag: "btn2",
+            heroTag: 'btn2',
             child: viewModel.getIcon,
           ),
           FloatingActionButton(
@@ -91,7 +91,7 @@ class ChronometerView extends StatelessWidget {
               viewModel.restartChronometer();
             },
             backgroundColor: AppColors.yellow,
-            heroTag: "btn3",
+            heroTag: 'btn3',
             child: const Icon(Icons.restart_alt),
           ),
         ],
@@ -101,7 +101,7 @@ class ChronometerView extends StatelessWidget {
 
   Widget _circularProgressBar() {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8),
       child: CircularProgressIndicator(
         value: viewModel.progress,
         color: AppColors.pink,

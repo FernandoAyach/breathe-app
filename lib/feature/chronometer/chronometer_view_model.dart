@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:breathe_app/feature/chronometer/chronometer_controller.dart';
 import 'package:breathe_app/model/duration_utils.dart';
-import 'package:breathe_app/support/components/default_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/localization.dart';
 
@@ -10,6 +9,9 @@ import '../../support/style/app_colors.dart';
 
 
 class ChronometerViewModel extends ChronometerViewProtocol {
+
+  static const minuteInSeconds = 60;
+
   Timer? timer;
   Icon icon = const Icon(Icons.play_arrow);
   Color iconBackgroundColor = AppColors.green;
@@ -86,7 +88,7 @@ class ChronometerViewModel extends ChronometerViewProtocol {
   }
 
   int handleSeconds(int time) {
-    return time - (60 * currentDuration.inMinutes);
+    return time - (minuteInSeconds * currentDuration.inMinutes);
   }
 
   void decreaseTime() {
@@ -97,29 +99,27 @@ class ChronometerViewModel extends ChronometerViewProtocol {
     if (currentDuration == Duration.zero) {
       timer?.cancel();
       currentDuration = const Duration();
-      didFinishLesson(getDefaultTextSnackBar(
-        l10n.chronometerSnackBarFinishLessonText
-      ));
+      didFinishLesson(l10n.chronometerSnackBarFinishLessonText);
     }
     setProgress();
     notifyListeners();
   }
 
   String formatDuration() {
-    String formattedDuration = "";
+    String formattedDuration = '';
     int seconds = handleSeconds(currentDuration.inSeconds);
     int minutes = currentDuration.inMinutes;
 
     if (minutes < 10) {
-      formattedDuration += "0$minutes:";
+      formattedDuration += '0$minutes:';
     } else {
-      formattedDuration += "$minutes:";
+      formattedDuration += '$minutes:';
     }
 
     if (seconds < 10) {
-      formattedDuration += "0$seconds";
+      formattedDuration += '0$seconds';
     } else {
-      formattedDuration += "$seconds";
+      formattedDuration += '$seconds';
     }
 
     return formattedDuration;
@@ -139,7 +139,7 @@ class ChronometerViewModel extends ChronometerViewProtocol {
     _progress = currentDuration.inSeconds / insertedDuration.inSeconds;
   }
 
-  void didFinishLesson(SnackBar snackBar) {
-    onFinishSession?.call(snackBar);
+  void didFinishLesson(String textContent) {
+    onFinishSession?.call(textContent);
   }
 }

@@ -56,7 +56,7 @@ class HomeView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 14, bottom: 8, left: 20),
+          padding: const EdgeInsets.only(top: 16, bottom: 8, left: 20),
           child: Expanded(
             child: Text(
               l10n.homeTitle,
@@ -76,7 +76,7 @@ class HomeView extends StatelessWidget {
           child: Text(
             l10n.homeSubtitle,
             style: AppFonts.interMedium(
-              18,
+              16,
               AppColors.black,
             ),
           ),

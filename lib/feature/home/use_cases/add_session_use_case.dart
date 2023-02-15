@@ -1,6 +1,6 @@
-import 'package:breathe_app/database/model/entity_session.dart';
+import 'package:breathe_app/api/database/model/entity_session.dart';
 
-import '../../../database/repository/session_repository.dart';
+import '../../../api/database/repository/session_repository.dart';
 import '../../../model/error_handler.dart';
 import '../../../model/session.dart';
 

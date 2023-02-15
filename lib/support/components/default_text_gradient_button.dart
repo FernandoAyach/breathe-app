@@ -22,9 +22,9 @@ class DefaultTextGradientButton extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Ink(
-        padding: const EdgeInsets.all(30.0),
+        padding: const EdgeInsets.all(32),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(32),
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,

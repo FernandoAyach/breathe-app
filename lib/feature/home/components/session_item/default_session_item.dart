@@ -25,23 +25,23 @@ class DefaultSessionItem extends StatelessWidget {
     final l10n = Localize.instance.l10n;
 
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8),
       child: Material(
-        elevation: 10,
-        borderRadius: BorderRadius.circular(25),
+        elevation: 12,
+        borderRadius: BorderRadius.circular(24),
         shadowColor: AppColors.pink,
         child: InkWell(
           onLongPress: () => viewModel.didLongTapSession(viewModel.sessionId),
           onTap: () => viewModel.didTapSession(),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(25),
+            borderRadius: BorderRadius.circular(24),
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
               child: Container(
                   height: 140,
                   width: 140,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25),
+                    borderRadius: BorderRadius.circular(24),
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
@@ -52,22 +52,22 @@ class DefaultSessionItem extends StatelessWidget {
                     ),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8),
                           child: Text(
                             viewModel.sessionName,
                             style: AppFonts.interMedium(20, AppColors.black),
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8),
                           child: Text(
-                            "${l10n.sessionDurationLabel} ${viewModel.sessionDuration}",
+                            '${l10n.sessionDurationLabel} ${viewModel.sessionDuration}',
                             style: AppFonts.interRegular(20, AppColors.black.withOpacity(0.95)),
                           ),
                         )

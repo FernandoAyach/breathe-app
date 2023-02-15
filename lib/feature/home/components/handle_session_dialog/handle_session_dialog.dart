@@ -38,7 +38,7 @@ class HandleSessionDialog extends StatelessWidget {
         ),
       ),
       content: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8),
         child: Form(
           key: viewModel.formKey,
           child: Column(
@@ -48,32 +48,29 @@ class HandleSessionDialog extends StatelessWidget {
                 validator: viewModel.textValidator,
                 controller: viewModel.sessionNameController,
               ),
-              Padding(
-                padding: const EdgeInsets.all(0.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: DefaultTextInput(
-                        label: l10n.dialogMinutesLabel,
-                        hint: l10n.dialogDefaultDurationTimeHint,
-                        maxLength: 2,
-                        inputType: TextInputType.number,
-                        validator: viewModel.minuteValidator,
-                        controller: viewModel.minuteDurationController,
-                      ),
+              Row(
+                children: [
+                  Expanded(
+                    child: DefaultTextInput(
+                      label: l10n.dialogMinutesLabel,
+                      hint: l10n.dialogDefaultDurationTimeHint,
+                      maxLength: 2,
+                      inputType: TextInputType.number,
+                      validator: viewModel.minuteValidator,
+                      controller: viewModel.minuteDurationController,
                     ),
-                    Expanded(
-                      child: DefaultTextInput(
-                        label: l10n.dialogSecondsLabel,
-                        hint: l10n.dialogDefaultDurationTimeHint,
-                        maxLength: 2,
-                        inputType: TextInputType.number,
-                        validator: viewModel.secondValidator,
-                        controller: viewModel.secondDurationController,
-                      ),
+                  ),
+                  Expanded(
+                    child: DefaultTextInput(
+                      label: l10n.dialogSecondsLabel,
+                      hint: l10n.dialogDefaultDurationTimeHint,
+                      maxLength: 2,
+                      inputType: TextInputType.number,
+                      validator: viewModel.secondValidator,
+                      controller: viewModel.secondDurationController,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
           ),

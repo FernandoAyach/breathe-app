@@ -1,6 +1,7 @@
 import 'package:breathe_app/feature/chronometer/di/chronometer_factory.dart';
 import 'package:breathe_app/feature/home/components/default_home_bottom_sheet.dart';
 import 'package:breathe_app/feature/home/components/handle_session_dialog/handle_session_dialog.dart';
+import 'package:breathe_app/support/extensions/state_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/session.dart';
@@ -12,7 +13,7 @@ abstract class HomeViewProtocol extends HomeViewModelProtocol {
   set longPressedSessionId(int longPressedSessionId);
   void Function()? onTapFloatingActionButton;
   void Function()? onConfirmBottomSheet;
-  void Function(SnackBar snackbar)? onDeleteSessionBottomSheet;
+  void Function(String textContent)? onDeleteSessionBottomSheet;
   void Function(Session session)? onTapSession;
   void Function(int sessionId)? onLongTapSession;
   void getSessions();
@@ -21,7 +22,7 @@ abstract class HomeViewProtocol extends HomeViewModelProtocol {
 abstract class HandleSessionDialogViewProtocol extends HandleSessionDialogViewModelProtocol {
   void Function()? onDismissDialog;
   void Function()? onConfirmDialog;
-  void Function(SnackBar snackbar)? onShowSnackBarDialog;
+  void Function(String textContent)? onShowSnackBarDialog;
 }
 
 class HomeController extends StatefulWidget {
@@ -67,14 +68,16 @@ class _HomeControllerState extends State<HomeController> {
         });
     };
     widget.homeViewModel.onTapSession = ((session) {
-      Navigator.pushNamed(context, ChronometerFactory.route, arguments: session);
+      Navigator.pushNamed(
+        context, ChronometerFactory.route, arguments: session
+      );
     });
 
-    widget.homeViewModel.onDeleteSessionBottomSheet = (snackBar) {
-      showSnackBar(snackBar);
+    widget.homeViewModel.onDeleteSessionBottomSheet = (textContent) {
+      showSnackBar(textContent);
     };
-    widget.handleSessionDialogViewModel.onShowSnackBarDialog = (snackBar) {
-      showSnackBar(snackBar);
+    widget.handleSessionDialogViewModel.onShowSnackBarDialog = (textContent) {
+      showSnackBar(textContent);
     };
     widget.handleSessionDialogViewModel.onDismissDialog = () =>  _popBack();
     widget.handleSessionDialogViewModel.onConfirmDialog = () => _changeFocus();
@@ -93,7 +96,5 @@ class _HomeControllerState extends State<HomeController> {
     Navigator.pop(context);
   }
 
-  void showSnackBar(SnackBar snackBar) {
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
+  void showSnackBar(String textContent) => showTextSnackBar(textContent);
 }

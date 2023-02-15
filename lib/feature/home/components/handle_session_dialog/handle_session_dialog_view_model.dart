@@ -1,5 +1,4 @@
 import 'package:breathe_app/feature/home/home_controller.dart';
-import 'package:breathe_app/support/components/default_snack_bar.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../model/form_validator.dart';
@@ -66,10 +65,10 @@ class HandleSessionDialogViewModel extends HandleSessionDialogViewProtocol {
       String name = _sessionNameController.text;
 
       if (FormValidator.minutesAndSecondZero(minutes, seconds)) {
-        _showSnackBar(getDefaultTextSnackBar(l10n.durationJustZerosMessage));
+        _showSnackBar(l10n.durationJustZerosMessage);
       } else {
         _session = Session(
-          duration: "$minutes $seconds",
+          duration: '$minutes $seconds',
           name: name
         );
         _addSession();
@@ -85,7 +84,7 @@ class HandleSessionDialogViewModel extends HandleSessionDialogViewProtocol {
         session: _session!,
         success: () {},
         failure: (errorDescription) {
-          _showSnackBar(getDefaultTextSnackBar(errorDescription));
+          _showSnackBar(errorDescription);
         }
       );
     }
@@ -105,7 +104,7 @@ class HandleSessionDialogViewModel extends HandleSessionDialogViewProtocol {
     _sessionNameController.clear();
   }
 
-  void _showSnackBar(SnackBar snackBar) {
-    onShowSnackBarDialog?.call(snackBar);
+  void _showSnackBar(String textContent) {
+    onShowSnackBarDialog?.call(textContent);
   }
 }

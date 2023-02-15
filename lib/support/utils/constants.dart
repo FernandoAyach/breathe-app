@@ -1,4 +1,4 @@
 class Constants {
 
-  static const String databaseName = "breathe_database";
+  static const String databaseName = 'breathe_database';
 }

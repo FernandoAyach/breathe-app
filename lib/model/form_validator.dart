@@ -1,6 +1,9 @@
 import '../support/utils/localize.dart';
 
 class FormValidator {
+  static const oneMinute = 60;
+  static const zero = 0;
+
   static final l10n = Localize.instance.l10n;
 
   static String? defaultValidation(String content) {
@@ -51,7 +54,7 @@ class FormValidator {
 
   static bool notValidSeconds(String content) {
     try {
-      if (int.parse(content) >= 60) {
+      if (int.parse(content) >= oneMinute) {
         return true;
       }
       return false;
@@ -62,7 +65,7 @@ class FormValidator {
 
   static bool notValidMinutes(String content) {
     try {
-      if (int.parse(content) > 60) {
+      if (int.parse(content) > oneMinute) {
         return true;
       }
       return false;
@@ -73,7 +76,7 @@ class FormValidator {
 
   static bool minutesAndSecondZero(String minutes, String seconds) {
     try {
-      if (int.parse(minutes) == 0 && int.parse(seconds) == 0) {
+      if (int.parse(minutes) == zero && int.parse(seconds) == zero) {
         return true;
       }
       return false;

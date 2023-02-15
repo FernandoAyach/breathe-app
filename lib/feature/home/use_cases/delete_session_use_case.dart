@@ -1,4 +1,4 @@
-import '../../../database/repository/session_repository.dart';
+import '../../../api/database/repository/session_repository.dart';
 import '../../../model/error_handler.dart';
 
 typedef Failure = void Function(String failure);
