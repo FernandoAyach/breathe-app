@@ -5,7 +5,7 @@ import 'package:breathe_app/feature/home/use_cases/delete_session_use_case.dart'
 import 'package:breathe_app/feature/home/use_cases/get_sessions_use_case.dart';
 import 'package:flutter/material.dart';
 
-import '../../../api/database/database.dart';
+import '../../../api/database/database_provider.dart';
 import '../../../support/utils/localize.dart';
 import '../home_controller.dart';
 import '../home_view_model.dart';
@@ -14,7 +14,7 @@ class HomeFactory {
   static const String route = '/home';
 
   static StatefulWidget home() {
-    final Database database = Database();
+    final DatabaseProvider database = DatabaseProvider();
     final l10n = Localize.instance.l10n;
     final sessionRepository = SessionRepository(database: database);
     final getSessionsUseCase = GetSessionsUseCase(sessionRepository: sessionRepository);

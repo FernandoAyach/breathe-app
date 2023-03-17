@@ -32,7 +32,7 @@ class HomeController extends StatefulWidget {
   const HomeController({
     super.key, 
     required this.homeViewModel, 
-    required this.handleSessionDialogViewModel
+    required this.handleSessionDialogViewModel  
   });
 
   @override
@@ -43,7 +43,7 @@ class _HomeControllerState extends State<HomeController> {
 
   @override
   void initState() {
-    _bind();
+    _bindViewModelFunctions();
     super.initState();
   }
 
@@ -53,48 +53,62 @@ class _HomeControllerState extends State<HomeController> {
     return HomeView(viewModel: widget.homeViewModel);
   }
 
-  void _bind() {
-    widget.homeViewModel.onTapFloatingActionButton = () {
-      showDialog(context: context, builder: (context) {
-        return HandleSessionDialog(viewModel: widget.handleSessionDialogViewModel);
-      });
+  void _bindViewModelFunctions() {
+    _bindHomeViewModelFunctions();
+    _bindHandleSessionDialogViewModelFunctions();
+  }
+
+  void _bindHomeViewModelFunctions() {
+    HomeViewProtocol homeViewModel = widget.homeViewModel;
+    
+    homeViewModel.onTapFloatingActionButton = () => _showDialog();
+    homeViewModel.onTapSession = ((session) => _goToChronometerScreen(session));
+    homeViewModel.onDeleteSessionBottomSheet = (textContent) => _showSnackBar(textContent);
+    homeViewModel.onConfirmBottomSheet = () =>  _popBack();
+    homeViewModel.onLongTapSession = (sessionId) {
+      _getSelectedSessionId(sessionId);
+      _showModalBottomSheet();
     };
-    widget.homeViewModel.onLongTapSession = (sessionId) {
-      widget.homeViewModel.longPressedSessionId = (sessionId);
-      showModalBottomSheet(
+  }
+
+  void _bindHandleSessionDialogViewModelFunctions() {
+    HandleSessionDialogViewProtocol handleSessionDialogViewModel = widget.handleSessionDialogViewModel;
+
+    handleSessionDialogViewModel.onShowSnackBarDialog = (textContent) => _showSnackBar(textContent);
+    handleSessionDialogViewModel.onDismissDialog = () =>  _popBack();
+    handleSessionDialogViewModel.onConfirmDialog = () => _changeFocus();
+  }
+
+  void _showDialog() {
+    showDialog(context: context, builder: (context) {
+        return HandleSessionDialog(viewModel: widget.handleSessionDialogViewModel);
+    });
+  }
+
+  void _showModalBottomSheet() {
+    showModalBottomSheet(
         context: context, 
         builder: (context) {
           return DefaultHomeBottomSheet(viewModel: widget.homeViewModel,);
-        });
-    };
-    widget.homeViewModel.onTapSession = ((session) {
-      Navigator.pushNamed(
+        }
+    );
+  }
+
+  void _goToChronometerScreen(Session session) {
+    Navigator.pushNamed(
         context, ChronometerFactory.route, arguments: session
       );
-    });
-
-    widget.homeViewModel.onDeleteSessionBottomSheet = (textContent) {
-      showSnackBar(textContent);
-    };
-    widget.handleSessionDialogViewModel.onShowSnackBarDialog = (textContent) {
-      showSnackBar(textContent);
-    };
-    widget.handleSessionDialogViewModel.onDismissDialog = () =>  _popBack();
-    widget.handleSessionDialogViewModel.onConfirmDialog = () => _changeFocus();
-    widget.homeViewModel.onConfirmBottomSheet = () =>  _popBack();
   }
 
-  void _getSessions() {
-    widget.homeViewModel.getSessions();
+  void _showSnackBar(String textContent) => showTextSnackBar(textContent);
+
+  void _popBack() => Navigator.pop(context);
+
+  void _getSelectedSessionId(int sessionId) {
+    widget.homeViewModel.longPressedSessionId = (sessionId);
   }
 
-  void _changeFocus() {
-    FocusScope.of(context).requestFocus(FocusNode());
-  }
+  void _changeFocus() => FocusScope.of(context).requestFocus(FocusNode());
 
-  void _popBack() {
-    Navigator.pop(context);
-  }
-
-  void showSnackBar(String textContent) => showTextSnackBar(textContent);
+  void _getSessions() => widget.homeViewModel.getSessions();
 }

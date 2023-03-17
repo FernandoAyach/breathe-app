@@ -94,10 +94,18 @@ class HomeViewModel
   void didTapDelete() {
     deleteSession();
     getSessions();
-    onDeleteSessionBottomSheet?.call(l10n.snackBarDeleteMessage);
-    onConfirmBottomSheet?.call();
+    showDeleteMessage();
+    closeBottomSheet();
   }
 
+  void showDeleteMessage() {
+    onDeleteSessionBottomSheet?.call(l10n.snackBarDeleteMessage);
+  }
+
+  void closeBottomSheet() {
+    onConfirmBottomSheet?.call();
+  }
+  
   void deleteSession() {
     setLoading(true);
     deleteSessionUseCase.execute(
